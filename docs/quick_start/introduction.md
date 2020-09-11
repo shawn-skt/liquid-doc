@@ -11,7 +11,11 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 ```eval_rst
 .. important::
 
-   Liquid选择Rust语言作为宿主语言也意味着，为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考`Rust语言官方教程 <https://doc.rust-lang.org/book/>`_ 。同时，Liquid的基础编程模型与现有的主流智能合约编程语言（如`Solidity <https://solidity.readthedocs.io/en/latest/>`_、`Vyper  <https://vyper.readthedocs.io/en/stable/>`_等）较为接近，如果您有使用这些语言进行智能合约开发的经验，将有助于学习使用Liquid。
+   Liquid选择Rust语言作为宿主语言也意味着，为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考 Rust语言官方教程_。同时，Liquid的基础编程模型与现有的主流智能合约编程语言（如 Solidity_ 或 Vyper_ 等）较为接近，如果您过有使用这些语言进行智能合约开发的经验，将有助于学习使用Liquid。
+
+.. _Rust语言官方教程: https://doc.rust-lang.org/book/
+.. _Solidity: https://solidity.readthedocs.io/en/latest/
+.. _Vyper: https://vyper.readthedocs.io/en/stable/
 ```
 
 ## 关键特性
