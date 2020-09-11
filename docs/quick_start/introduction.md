@@ -4,7 +4,7 @@
 
 Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_domain_specific_language)（embedded Domain-Specific Language，eDSL），其特性可以从下列两个方面理解：
 
-- **领域特定语言**：领域特定语言是指专用于某个应用程序领域的计算机语言。与能够被应用在各个领域的通用编程语言（如C++、Java等）不同，Liquid被设计为专注为区块链底层平台[FISCO BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)编写能够被编译为[WebAssembly](https://webassembly.org/)（Wasm）字节码格式的智能合约。使用Liquid编写的智能合约能够在内置有Wasm虚拟机的FISCO BCOS区块链节点上运行。
+- **领域特定语言**：领域特定语言是指专用于某个应用程序领域的计算机语言。与能够被应用在各个领域的通用编程语言（如C++、Java等）不同，Liquid被设计为专注为区块链底层平台FISCO BCOS编写能够被编译为[WebAssembly](https://webassembly.org/)（Wasm）字节码格式的智能合约。使用Liquid编写的智能合约能够在内置有Wasm虚拟机的FISCO BCOS区块链节点上运行。
 
 - **嵌入式**：Liquid没有设计新的语法，而是将自身“嵌入”在通用编程语言[Rust](https://www.rust-lang.org/)中，即Rust语言是Liquid的宿主语言。Liquid对Rust语言的部分语法进行了重新诠释，从而能够借助Rust语言来方便地表达智能合约特有的语义。使用Liquid编写的应用程序，本身也是合法的Rust程序，能够使用现有Rust标准工具链进行编译、优化。
 
@@ -115,4 +115,4 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 
 ## Let's Liquid!
 
-在接下来的篇幅中，我们将介绍Liquid合约开发环境的搭建及基本的开发流程，以帮助您将您对区块链应用的创意快速变为现实。
+在接下来的篇幅中，我们将介绍Liquid合约开发环境的搭建及基本的开发流程，以帮助您将您关于区块链应用的创意快速变为现实。

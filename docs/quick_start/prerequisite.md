@@ -1,101 +1,128 @@
 # 搭建Liquid开发环境
 
-本章介绍使用Liquid进行智能合约开发所需的必要配置，包括：
-
-- 准备Rust编译环境；
-
-- 安装命令行工具cargo-liquid；
-
-- 编译集成Wasm虚拟机的FISCO BCOS节点
-
-- 搭建区块链环境
-
-- 安装合约部署工具
-
-为更好地编写Liquid智能合约，需要您对Rust有基本地了解，可以参考[Rust官方教程](https://doc.rust-lang.org/book/index.html)
+本章介绍使用Liquid进行智能合约开发所需的必要配置。
 
 ```eval_rst
 .. admonition:: 注意
 
-首先于网络原因及机器性能，编译过程可能较慢
+   受限于您使用的网络的情况及机器的性能，部分组件的编译过程可能较为耗时，请耐心等待，必要时您可能需要为您的网络配置代理。
 ```
 
-## Rust编译环境
+## 部署Rust编译环境
 
-编译Liquid智能合约主要依赖Rust编译器rustc及Rust的构建系统及包管理器Cargo，其中。rustc版本要求 >= 1.46.0，cargo版本要求>= 1.45.1
+Liquid智能合约的编译主要依赖rustc（Rust语言编译器）及cargo（Rust语言的包管理器及构建系统)。其中，rustc的版本需要大于等于1.46.0、cargo的版本需要大于等于1.45.1。
 
-如果您未安装过rustc及Cargo，如果您是Mac或Linux用户，请在命令行中执行：
+- 如果您从未在您的机器上安装rustc及cargo：
 
-```shell
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
+  - 如果您是Mac或Linux用户，请在命令行中执行以下命令：
 
-安装rustup工具以对rust编译进行管理
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
 
-如果您是Windows的用户，而可以根据您的操作系统位数从[此处](https://static.rust-lang.org/rustup/dist/i686-pc-windows-msvc/rustup-init.exe)下载32位版本安装程序或从[此处](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)下载64位版本安装程序。
+    此命令将会自动安装rustup工具，rustup会自动为您安装rustc及cargo。
 
-如果您安装过rustc及cargo但是版本未达到最低要求，您需要在命令行中执行：
+  - 如果您是32位Windows用户，请访问[此处](https://static.rust-lang.org/rustup/dist/i686-pc-windows-msvc/rustup-init.exe)下载安装32位版本安装程序。
 
-```shell
-rustup update
-```
+  - 如果您是64位Windows用户，请访问[此处](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)下载安装64位版本安装程序。
 
-安装必要的编译工具链：
+- 如果您在您的机器上安装过rustc及cargo，但是版本未达到最低要求，则请在命令行中执行以下命令更新rustc及cargo：
 
-```shell
-# 目前部分功能需要在迭代更新较快的Nightly版本中才能编译成功
+  ```bash
+  rustup update
+  ```
+
+此外，还需要安装以下组件，以使rustc能够将Liquid合约代码编译Wasm格式字节码：
+
+```bash
 rustup toolchain install nightly
 rustup target add wasm32-unknown-unknown --toolchain stable
-rustup component add rust-src --toolchain nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup component add rust-src --toolchain stable
+rustup component add rust-src --toolchain nightly
 ```
 
-安装完毕后，执行以下命令以验证已经正确安装：
+```eval_rst
+.. admonition:: 注意
 
-```shell
+   由于Liquid的用到了少量尚不稳定的Rust语言特性，因此在构建Liquid合约时需要依赖nightly版本的rustc。但是请您放心，这些特性已经被广泛使用在Rust社区中，因此其可靠性值得信赖。随着rust版本迭代演进，这些特性终会变为稳定特性。
+```
+
+安装完毕后，执行以下命令以验证rustc及cargo已正确安装：
+
+```bash
+rustc --version
 cargo --version
 ```
 
 ```eval_rst
 .. admonition:: 注意
 
-所有必要组件安装完毕后，所有的组件都被安装在`./cargo/bin`目录下，包括rustc、cargo、rustup等。为方便使用，需要将`./cargo/bin`加入到系统的`PATH`环境变量中，在安装过程中，rustup会尝试自动配置`PATH`环境变量，但是由
+   所有可执行程序都会被安装于`$HOME/cargo/bin`目录下，包括rustc、cargo及rustup等。为方便使用，您需要将`$HOME/cargo/bin`目录加入到系统的`PATH`环境变量中。在安装过程中，rustup会尝试自动配置`PATH`环境变量，但是由于权限或平台特性不同的原因，自动配置可能会失败。当您发现rustc或cargo无法正常执行时，您可能需要手动配置该环境变量。
 ```
 
-```eval_rst
-.. admonition:: 注意
+编译Liquid合约的过程中需要下载大量依赖，若您使用的网络无法正常访问crates.io官方镜像，请为cargo更换源：
 
-为cargo更换源
+```bash
+# 编辑cargo配置文件，若没有则新建
+vim $HOME/.cargo/config
+```
+
+在配置文件中添加以下内容，将cargo源更换为中科大镜像：
+
+```ini
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+replace-with = 'ustc'
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 ```
 
 ## 命令行工具cargo-liquid
 
 为方便合约开发与编译，Liquid提供了命令行工具cargo-liquid，在命令行中执行以下命令安装：
 
-```shell
+```bash
 cargo install --git https://github.com/vita-dounai/cargo-liquid --force
 ```
 
-## 编译FISCO BCOS with Wasm
+## 编译FISCO BCOS
 
-作为实验性功能，需要手动编译FISCO BCOS方能启用Wasm虚拟机，
+FISCO BCOS对Wasm虚拟机的支持目前尚未合入主干版本，因此启用Wasm虚拟机需要手动编译FISCO BCOS源码。
 
-克隆FISCO BCOS源代码
-```shell
-cd clone https://github.com/bxq2011hust/FISCO-BCOS-1
+在命中行中执行克隆FISCO BCOS源代码：
+
+```bash
+git clone https://github.com/bxq2011hust/FISCO-BCOS-1
 ```
 
-```shell
+编译FISCO BCOS：
+
+```bash
 cd FISCO-BCOS-1
-mkdir build
-cmake -DARCH_NATIVE=on ..
+git checkout dev-hera
+mkdir build && cd build
+cmake ..
 make -j4
 ```
 
-cmake的最小版本
+编译过程中还会包含对hera及wasmer项目的编译，因此耗时相对于编译常规FISCO BCOS源码较长，请耐心等待。编译完成后，带Wasm虚拟机FISCO BCOS二进制程序会存放于`FISCO-BCOS-1/build/bin`目录下。
 
-指定build_chain.sh的support version
+## 建链
 
-## SDK部署
+建链方式可参考一键建链工具[build_chain.sh](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#)。需要注意的是，建链过程中务必不要使用build_chain.sh自动下载的FISCO BCOS二进制程序，而应当使用`-e`选项来指定使用上一步中我们手动编译出的FISCO BCOS二进制程序，同时，需要使用`-v`选项指定兼容版本号大于等于2.6.0。关于build_chain.sh及相关选项的使用方式请参考上述文档链接。
 
-Liquid在设计上的ABI与的Solidity一致，因此SDK无需关心链上是Solidity合约或是Liquid合约，为方便部署
+## 部署Node.js SDK
+
+目前仅有FISCO BCOS Node.js SDK提供的CLI命令行工具支持以Wasm字节码格式的形式部署合约，因此，需要您在本地部署该SDK。部署方式可参考[Node.js SDK文档](https://github.com/FISCO-BCOS/nodejs-sdk/blob/master/README.md)。但需要注意的是，部署Wasm字节码合约功能同样未合入主干版本。因此在部署过程中，当您克隆了Node.js SDK的源码后，需要手动切换到`wasm`分支，即按照如下方式操作：
+
+```bash
+# 下列步骤来自于https://github.com/FISCO-BCOS/nodejs-sdk/blob/master/README.md#%E4%BA%8Ccli%E5%B7%A5%E5%85%B7
+git clone https://github.com/FISCO-BCOS/nodejs-sdk.git
+cd nodejs-sdk
+# 注意！需要添加这一步
+git checkout wasm
+...
+```
+
+关于如何使用Node.js SDK提供的CLI命令行工具部署Liquid合约，我们将在下一节中进行介绍。

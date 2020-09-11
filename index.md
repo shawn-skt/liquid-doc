@@ -1,5 +1,7 @@
 # Liquid
 
+Liquid是一种专用于为区块链底层平台[FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/)编写智能合约的嵌入式领域特定语言。
+
 ```eval_rst
 .. toctree::
    :hidden:
