@@ -5,10 +5,5 @@
    :hidden:
    :maxdepth: 1
 
-   introduction.md
-   environment.md
-   new.md
-   test.md
-   deploy.md
-   call.md
+   architecture.md
 ```
