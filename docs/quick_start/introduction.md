@@ -11,7 +11,7 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 ```eval_rst
 .. important::
 
-   Liquid选择Rust语言作为宿主语言也意味着：为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考`Rust语言官方教程 <https://doc.rust-lang.org/book/>`_ 。同时，Liquid的基础编程模型与现有的主流智能合约编程语言（如`Solidity <https://solidity.readthedocs.io/en/latest/>`_ 、`Vyper <https://vyper.readthedocs.io/en/stable/>`_ ）等较为接近，如果您有使用这些语言进行智能合约开发的经验，将会为使用Liquid带来极大的裨益。
+   Liquid选择Rust语言作为宿主语言也意味着，为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考`Rust语言官方教程 <https://doc.rust-lang.org/book/>`_ 。同时，Liquid的基础编程模型与现有的主流智能合约编程语言（如`Solidity <https://solidity.readthedocs.io/en/latest/>`_、`Vyper  <https://vyper.readthedocs.io/en/stable/>`_等）较为接近，如果您有使用这些语言进行智能合约开发的经验，将有助于学习使用Liquid。
 ```
 
 ## 关键特性
@@ -109,6 +109,6 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 
 第32~50行定义了一个专用于单元测试的mod。单元测试并不是合约的的一部分，而是用于在本机运行以检查合约方法实现逻辑的正确性。第32行是一个编译开关，意为只有当`test`编译标志启用时，其后跟随的`mod`才会参与编译，否则直接从代码中剔除。当将Liquid编译为Wasm字节码时， `test`编译标志不会启用，因此最后的合约字节码中不会包含任何测试。由于`mod`会进行命名空间隔离，因此我们需要在第34行从外部导入我们刚刚定义的合约符号，以方便在单元测试中使用。在`tests`模块中，我们编写了2个单元测试，分别用于测试`get`函数和`set`函数的正确性。
 
-### Let's Liquid!
+## Let's Liquid!
 
 在接下来的篇幅中，我们将介绍Liquid合约开发环境的搭建及基本的开发流程，以帮助您将您对区块链应用的创意快速变为现实。
