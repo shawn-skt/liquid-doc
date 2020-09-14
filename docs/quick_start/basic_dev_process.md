@@ -204,4 +204,4 @@ node .\cli.js call hello_world 0x039ced1cd5bea5ace04de8e74c66e312ba4a48af get
 }
 ```
 
-其中`output.result`字段中包含了`get`方法的返回值。可以看到，正如我们所预期的那样，`get`方法返回了字符串`"Hello, Alice!"`。
+其中`output.result`字段中包含了`get`方法的返回值。可以看到，正如我们所预期的那样，`get`方法返回了字符串“Hello, Alice!”。

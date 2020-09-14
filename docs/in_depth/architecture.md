@@ -34,7 +34,7 @@ Rust源代码文件编译需要经过下列阶段（我们在图中省略了优�
 
     ![](../../images/in_depth/architecture/ast.png)
 
-3. 然后，编译器开始分析AST并执行宏展开过程。此阶段是是最为重要的阶段，因为Liquid主要工作在这个阶段。以[HelloWorld合约](../quick_start/introduction.md)为例，编译器构造出HelloWorld合约的AST后，当扫描至AST中表示"#[liquid::contract(version = "0.1.0")]"的语法树节点时，编译器能够知道，此处正在调用[属性宏](https://doc.rust-lang.org/reference/procedural-macros.html#attribute-macros)（Rust中一种特殊的宏），因此会开始寻找`contract`属性宏的定义并尝试进行宏展开。在Liquid中，`contract`属性宏的定义如下：
+3. 然后，编译器开始分析AST并执行宏展开过程。此阶段是是最为重要的阶段，因为Liquid主要工作在这个阶段。以[HelloWorld合约](../quick_start/introduction.html#hello-world)为例，编译器构造出HelloWorld合约的AST后，当扫描至AST中表示```#[liquid::contract(version = "0.1.0")]"```语句的语法树节点时，编译器能够知道，此处正在调用[属性宏](https://doc.rust-lang.org/reference/procedural-macros.html#attribute-macros)（Rust中一种特殊的宏），因此会开始寻找`contract`属性宏的定义并尝试进行展开。在Liquid中，`contract`属性宏的定义如下：
 
     ```rust
     #[proc_macro_attribute]
@@ -43,11 +43,11 @@ Rust源代码文件编译需要经过下列阶段（我们在图中省略了优�
     }
     ```
 
-    在上述代码中可以看到，属性宏是以函数的形式定义的，其输入是若干个标记序列（TokenStream），其输出同样是一个标记序列。事实上，在Rust语言中，宏的确可以理解为将某一个AST变换到另外一个AST的函数！只是Rust编译器并不会向属性宏直接传递AST，而且会将其调用位置所在的语法树节点转换为标记序列传递给属性宏，由属性宏的编写者自行决定如何处理这段标记序列。无论如何处理，属性宏都需要返回一段标记序列，Rust编译器接收到这段标记序列后，会将其重新编译为AST插入到原调用位置，从而完成代码编译期更新。具体到Liquid的`contract`属性宏，当编译器进行展开时，`contract`属性宏会获取到自身及其后跟随的`mod`（即我们用来定义合约状态及合约方法的模块）的标记序列，并将其解析为一颗AST。随后，`contract`属性宏会自顶向下扫描这颗AST，当遇到使用"#[liquid(storage)] struct ..."语法定义的合约状态时，会进行语法检查及代码变换，将对结构体成员的读写操作变为对链上状态读写接口的调用。同理，在合约代码中使用"#[liquid(event)] struct ..."语法定义事件、使用"#[liquid(methods)] impl ..."语法定义合约方法等也会经历同样的代码变换过程，只是变换及桥接到区块链底层平台的方式不尽相同。
+    在上述代码中可以看到，属性宏是以函数的形式定义的，其输入是两个标记序列（TokenStream），其输出是一个标记序列。事实上，在Rust语言中，宏的确可以理解为将某一个AST变换到另外一个AST的函数！只是Rust编译器并不会向属性宏直接传递AST，而且会将其调用位置所在的语法树节点转换为标记序列传递给属性宏，由属性宏的编写者自行决定如何处理这段标记序列。无论如何处理，属性宏都需要返回一段标记序列，Rust编译器接收到这段标记序列后，会将其重新编译为AST并插入到宏的调用位置，从而完成代码编译期修改。具体到Liquid的`contract`属性宏，当编译器进行展开时，`contract`属性宏会获取到自身及其后跟随的`mod`（即我们用来定义合约状态及合约方法的模块）的标记序列，并将其解析为一颗AST。随后，`contract`属性宏会自顶向下扫描这颗AST，当遇到使用```#[liquid(storage)] struct ...```语法定义的合约状态时，会进行语法检查及代码变换，将对结构体成员的读写操作变为对链上状态读写接口的调用。同理，当合约代码中出现```#[liquid(methods)] impl ...```等语句时，也会经历相似的代码变换过程，只是变换及桥接到区块链底层平台的方式不尽相同。
 
 4. 编译器将进行宏展开之后的AST翻译为可执行文件：若是需要在本机运行单元测试，则会将AST翻译为本机所使用的操作系统及CPU所能识别的可执行文件格式及二进制代码；若是需要可以在区块链上部署运行，则会将AST翻译为Wasm格式字节码。至此，合约的基本构建流程结束。
 
-从Liquid的实现原理中可以看出，Liquid可以理解为是一种以Rust语言目标语言的编程语言。编译器的广义定义是一种会将某种编程语言写成的源代码转换成另一种编程语言计算机程序，因此实际上Liquid的宏展开过程一定程度上扮演了编译器的角色，从而让您在编写合约时更加便利、自然。如果您对[HelloWorld合约](../quick_start/introduction.md)完全展开后的代码形态感兴趣，可以参考[这里](https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=a2ac3d836b0fdce414e656019b454c82)，您可能会发现这些代码极其晦涩，但幸运的是，您完全不需要和这些代码打交道，Liquid会帮您打理好一切:)。
+从Liquid的实现原理中可以看出，Liquid可以理解为是一种以Rust语言目标语言的编程语言。在编译器的广义定义中，编译器是一种会将某种编程语言写成的源代码转换成另一种编程语言计算机程序，因此Liquid的宏展开过程一定程度上扮演了编译器的角色，从而让您在编写合约时更加便利、自然。如果您对[HelloWorld合约](../quick_start/introduction.html#hello-world)完全展开后的代码形态感兴趣，可以参考[这里](https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=a2ac3d836b0fdce414e656019b454c82)，您可能会发现这些代码极其晦涩，但幸运的是，您完全不需要和这些代码打交道，Liquid会帮您打理好一切:)。
 
 ## 架构设计
 
@@ -59,7 +59,7 @@ Liquid及周边开发工具的整体架构如下图所示：
 
 - ***cargo-liquid***：方便开发者进行合约开发及构建的命令行工具。开发者在本机安装后cargo-liquid能够以cargo自定义扩展命令的形式为开发提供服务：
 
-  - 当开发者执行`cargo liquid new ...`命令时，cargo-liquid的new模块会以[HelloWorld合约](../quick_start/introduction.md)合约为模板创建合约项目，并自动配置编译选项及外部依赖、实现ABI生成器，开发者可以基于该模板进一步开发属于自己的智能合约。
+  - 当开发者执行`cargo liquid new ...`命令时，cargo-liquid的new模块会以[HelloWorld合约](../quick_start/introduction.html#hello-world)合约为模板创建合约项目，并自动配置编译选项及外部依赖、实现ABI生成器，开发者可以基于该模板进一步开发属于自己的智能合约。
 
   - 当开发者执行`cargo liquid build ...`命令时，cargo-liquid的build模块会收集编译元信息（如目标类型等），并调用rustc进行跨平台编译，将Liquid合约编译为Wasm格式字节码，随后使用wasm-opt等工具对生成的字节码进行效率及体积上的优化，最后调用ABI生成器为开发者的合约生成JSON格式的ABI。
 
