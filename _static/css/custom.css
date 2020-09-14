@@ -30,7 +30,8 @@ input {
 }
 
 p {
-    font-size: 100%; /* Get rid of RTD rule that assumes nobody changes their browser font size */
+    font-size: 100%;
+    /* Get rid of RTD rule that assumes nobody changes their browser font size */
 }
 
 
@@ -65,7 +66,8 @@ p {
 }
 
 .wy-nav-content {
-    background-color: #fff max-width: 1000px;
+    background-color: #fff max-width: 1200px;
+    max-width: 1200px !important;
 }
 
 .wy-nav-side {
@@ -98,16 +100,16 @@ p {
     margin: 0 0 -1px 0;
 }
 
-.codesnippet-widgets > span {
+.codesnippet-widgets>span {
     padding: 10px;
     cursor: pointer;
 }
 
-.codesnippet-widgets > .current {
+.codesnippet-widgets>.current {
     background: #263673;
 }
 
-.codeset > .highlight-java {
+.codeset>.highlight-java {
     display: none;
 }
 
@@ -166,7 +168,7 @@ p {
 
 .wy-nav-top a {
     color: transparent;
-/*    background-image: url('../images/fabric1.png'); */
+    /*    background-image: url('../images/fabric1.png'); */
     background-repeat: no-repeat;
     background-size: Auto 19px;
     background-position: center top;
