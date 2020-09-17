@@ -18,4 +18,5 @@ Liquid是一种专用于为区块链底层平台[FISCO BCOS](https://fisco-bcos-
    :caption: 深入学习
 
    docs/in_depth/architecture.md
+   docs/in_depth/contract_definition.md
 ```
