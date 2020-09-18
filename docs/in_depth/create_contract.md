@@ -32,6 +32,7 @@ Liquid合约有两种属性：
 Rust语言中存在声明模块可见性的语法，主要用于控制当前模块能否被其他模块使用，但对于Liquid合约，这种语法并无意义。为避免Liquid合约的表现与您所预期的模块可见性存在差异，Liquid不允许您为合约模块添加任何可见性声明。例如，下列试图将合约模块声明为公开的代码是非法的：
 
 ```rust
+// Forbidden!
 #[liquid::contract(version = "0.1.0", hash_type = "keccak256")]
 pub mod hello_world {
     // ...
@@ -41,6 +42,7 @@ pub mod hello_world {
 除此之外，定义合约的`mod`必须是内联的，即只能使用`mod m { ... }`的形式定义，而其他方式是非法的：
 
 ```rust
+// Forbidden!
 #[liquid::contract(version = "0.1.0", hash_type = "keccak256")]
 mod hello_world;
 ```
