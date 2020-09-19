@@ -230,3 +230,62 @@ impl Foo {
 |序列容器`Vec<T>`| `pub fn foo(&self, index: u32) -> T` |
 |映射容器`Mapping<K, V>`| `pub fn foo(&self, key: K) -> V` |
 |可迭代映射容器`IterableMapping<K, V>`| `pub fn foo(&self, key: K) -> V` |
+
+## 杂注
+
+在合约模块中，Liquid只允许存在一个`impl`代码块，且只能用于为定义状态变量的结构体添加成员函数（即合约方法）。当您在合约模块内定义了某个另外的结构体并试图为其实现成员函数时，Liquid将会发出编译错误：
+
+```rust
+#[liquid::contract(version = "0.1.0")]
+mod foo {
+    #[liquid(storage)]
+    struct Foo {
+        bar: String,
+    }
+
+    // 合约方法
+    impl Foo {
+        // ...
+    }
+
+    // 另外一个普通结构体的定义
+    struct Ace {
+        // ...
+    }
+
+    // 编译错误，存在多个impl代码块
+    impl Ace {
+        // ...
+    }
+}
+```
+
+若您的确有这种需求，可以采用将该结构体的定义及成员函数的实现挪出合约模块，然后在合约模块内引用该结构的定义：
+
+```rust
+// 另外一个普通结构体的定义
+struct Ace {
+    // ...
+}
+
+// 编译通过
+impl Ace {
+    // ...
+}
+
+#[liquid::contract(version = "0.1.0")]
+mod foo {
+    // 引用外部定义
+    use super::Ace;
+
+    #[liquid(storage)]
+    struct Foo {
+        bar: String,
+    }
+
+    // 合约方法
+    impl Foo {
+        // ...
+    }
+}
+```
