@@ -185,21 +185,21 @@ Liquid中所有可用容器的定义均位于`liquid_core::storage`模块中，�
 
   功能：移除序列容器的最后一个元素并将其返回。若序列容器为空，则返回`None`。
 
-- swap
+- `swap`
 
   签名：`swap(&mut self, a: u32, b: u32)`
 
   功能：交换序列容器中第`a`个及第`b`个元素。若`a`或`b`越界，则引发panic。
 
-- swap_remove
+- `swap_remove`
 
   签名：`swap_remove(&mut self, n: u32) -> Option<T>`
 
   功能：从序列容器中移除第`n`个元素，并将最后一个元素移动至第`n`个元素所在的位置，随后返回被移除元素的引用。若`n`越界，则返回`None`；若第`n`个元素就是序列容器中的最后一个元素，则效果等同于`pop`接口。
 
-- extend
+- `extend`
 
-  签名：`extend<I>(&mut self, iter: I)`，其中`iter`为元素类型为`T`或`&T`的迭代器。
+  签名：`extend<I>(&mut self, iter: I)`，其中`iter`为元素类型为`T`或`&T`的迭代器
 
   功能：按顺序遍历迭代器，并将迭代器所访问的元素依次插入到序列容器的尾部。
 
@@ -286,7 +286,7 @@ for elem in elems.iter() {
 
 - `extend`
 
-  签名：`extend<I>(&mut self, iter: I)`，其中`iter`为元素类型为`(K, V)`或`(&K, &V)`的迭代器。
+  签名：`extend<I>(&mut self, iter: I)`，其中`iter`为元素类型为`(K, V)`或`(&K, &V)`的迭代器
 
   功能：按顺序遍历迭代器，并将迭代器所访问的元素拆解为键、值并插入到映射容器中。
 

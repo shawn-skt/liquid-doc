@@ -126,3 +126,8 @@ git checkout wasm
 ```
 
 关于如何使用Node.js SDK提供的CLI命令行工具部署Liquid合约，我们将在下一节**基本开发流程**中进行介绍。
+
+
+## 安装Binaryen
+
+Binaryen项目中包含一系列有用的Wasm字节码分析及优化工具，其中有些工具（如`wasm-opt`等）对于构建Liquid合约极为重要。目前Binaryen进仅提供了编译安装的方式，请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)，根据您所使用的操作系统平台选择相应的编译安装方式。
