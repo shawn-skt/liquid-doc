@@ -1,6 +1,6 @@
 # BCOS Wasm合约接口规范
 
-BCOS Wasm合约接口规范（BCOS Wasm Contract Interface，BWCI）用于规范合约中的内容及结构。
+BCOS Wasm合约接口（BCOS Wasm Contract Interface，BWCI）规范用于规范合约中的内容及结构。
 
 ## 传输格式
 
@@ -41,4 +41,4 @@ BCOS Wasm合约接口规范（BCOS Wasm Contract Interface，BWCI）用于规范
 
 ## Traps
 
-如果合约的执行过程中触发了Wasm的`trap`（如执行了`unreachable`等指令），则合约的执行会立即终止。
+如果合约的执行过程中触发了Wasm的`trap`（如执行了`unreachable`指令、共享内存访问越界等），则合约的执行会立即终止。
