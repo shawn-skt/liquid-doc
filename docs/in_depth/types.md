@@ -155,6 +155,12 @@ Liquid的事件模型被设计为与Solidity中的事件模型基本保持一致
 
   功能：返回一个地址为0x0000000000000000000000000000000000000000的`Address`对象。
 
+- `empty`
+
+  签名：`empty() -> Self`
+
+  功能：同`default`
+
 - `to_string`
 
   签名：`to_string(&self) -> String`
