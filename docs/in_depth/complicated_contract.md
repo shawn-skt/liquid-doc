@@ -4,7 +4,7 @@
 
 ## 投票合约
 
-*节所展示的投票合约来自于[Solidity by Example](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting)。*
+*本节所展示的投票合约来自于[Solidity by Example](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting)。*
 
 传统电子投票的主要问题是如何将投票权分配给正确的参与者以及如何防止投票过程被操纵。我们不会在这个示例中试图解决所有，但我们至少会展示如何使用智能合约进行委托投票，同时保证计票是完全自动和透明的。
 
