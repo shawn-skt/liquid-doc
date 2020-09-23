@@ -4,7 +4,7 @@ BCOS Wasm合约接口（BCOS Wasm Contract Interface，BWCI）规范用于规范
 
 ## 传输格式
 
-所有的合约必须已[WebAssembly二进制编码](https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md)格式保存即传输，即Wasm格式字节码。
+所有的合约必须已[WebAssembly二进制编码](https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md)格式保存及传输，即Wasm格式字节码。
 
 ## 导入
 
