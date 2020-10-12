@@ -114,7 +114,7 @@ make -j4
 
 ## 部署Node.js SDK
 
-目前仅有FISCO BCOS Node.js SDK提供的CLI命令行工具支持以Wasm字节码格式的形式部署合约，因此，需要您在本地部署该SDK。部署方式可参考[Node.js SDK文档](https://github.com/FISCO-BCOS/nodejs-sdk/blob/master/README.md)。但需要注意的是，部署Wasm字节码合约功能同样未合入主干版本。因此在部署过程中，当您克隆了Node.js SDK的源码后，需要手动切换到`wasm`分支，即按照如下方式操作：
+目前仅有FISCO BCOS Node.js SDK提供的CLI命令行工具支持以Wasm字节码格式的形式部署合约，因此，需要您在本地部署该SDK。部署方式可参考[Node.js SDK文档](https://github.com/FISCO-BCOS/nodejs-sdk#fisco-bcos-nodejs-sdk)。但需要注意的是，部署Wasm字节码合约功能同样未合入主干版本。因此在部署过程中，当您克隆了Node.js SDK的源码后，需要手动切换到`wasm`分支，即按照如下方式操作：
 
 ```bash
 # 下列步骤来自于https://github.com/FISCO-BCOS/nodejs-sdk/blob/master/README.md#%E4%BA%8Ccli%E5%B7%A5%E5%85%B7

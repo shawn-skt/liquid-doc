@@ -19,7 +19,7 @@ mod hello_world {
 
 Liquid合约有两种属性：
 
-- `version`：`version`用于指定所使用的Liquid版本。在未来，随着Liquid不断迭代，可能会引入不兼容的功能特性，在这种情况下，您所指定的Liquid版本将会影响Liquid解析合约的方式。`version`必须以[语义化版本](https://semver.org/lang/zh-CN/)的格式提供，即版本是以英语句号`.`分割的主版本号、次版本号即及修订号。
+- `version`：`version`用于指定所使用的Liquid版本。在未来，随着Liquid不断迭代，可能会引入不兼容的功能特性，在这种情况下，您所指定的Liquid版本将会影响Liquid解析合约的方式。`version`必须以[语义化版本](https://semver.org/lang/zh-CN/)的格式提供，即版本是以英语句号`.`分割的主版本号、次版本号及修订号。
 
 - `hash_type`：Liquid在某些场合需要使用到哈希函数（如计算合约方法选择器、参数编码等）。`hash_type`提供了两个选项：`keccak256`及`sm3`，用于在不同的场景下，指定Liquid使用的哈希函数类型。当您的合约需要部署至非国密FISCO BCOS区块链平台时，您需要指定`hash_type`为`keccak256`以启用Keccak-256哈希算法；反之，若您的合约需要部署至国密FISCO BCOS区块链平台，则您需要指定`hash_type`为`sm3`以启用国密SM3哈希算法。`hash_type`属性是可选的，当您没有提供时，Liquid默认将`hash_type`设置为`keccak256`。
 
