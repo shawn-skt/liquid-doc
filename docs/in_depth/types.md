@@ -165,7 +165,7 @@ Liquid的事件模型被设计为与Solidity中的事件模型基本保持一致
 
   签名：`to_string(&self) -> String`
 
-  功能：将`Address`转换为以16进制表示的字符串，以`0x`开头。
+  功能：将`Address`转换为以16进制表示的字符串，以`0x`开头。注意，`Address`类型是通过实现`string::ToString` trait来提供`to_string`接口，在合约编译过程中编译器可能会提示您需要在代码中加入一行"`use crate::alloc::string::ToString;`"。
 
 - `from`
 
