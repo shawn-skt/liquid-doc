@@ -4,13 +4,13 @@ BCOS Wasm合约接口（BCOS Wasm Contract Interface，BWCI）规范用于规范
 
 ## 传输格式
 
-所有的合约必须已[WebAssembly二进制编码](https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md)格式保存及传输，即Wasm格式字节码。
+所有的合约必须已[WebAssembly二进制编码](https://webassembly.github.io/spec/core/binary/index.html)格式保存及传输，即Wasm格式字节码。
 
 ## 符号导入
 
 合约仅能导入在[BCOS环境接口规范](./bei.html)中定义的符号。所有的符号都需要从名为`bcos`的命名空间中导入，若导入的符号是函数，则函数的签名必须与[BCOS环境接口规范](./bei.html)中所声明的函数签名保持一致。
 
-除了`bcos`命令空间外，还有一个名为`debug`的特殊的命名空间。这个命名空间中所声明的函数的主要用于虚拟机的调试模式，在正式的生产环境中这个命名空间不会被启用，详情请参考[调试模式](./bwci.html#调试模式)。
+除了`bcos`命令空间外，还有一个名为`debug`的特殊的命名空间。这个命名空间中所声明的函数的主要用于虚拟机的调试模式，在正式的生产环境中这个命名空间不会被启用，详情请参考[调试模式](./bwci.html#id4)。
 
 ## 符号导出
 
