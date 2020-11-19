@@ -36,6 +36,17 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 
 `Hello World`合约的完整Liquid代码如下：
 
+```eval_rst
+.. code-block:: rust
+    :linenos:
+    :emphasize-lines: 1,2
+
+    #[liquid::interface]
+    mod entry {
+        // ...
+    }
+```
+
 ```rust
  1 #![cfg_attr(not(feature = "std"), no_std)]
  2
