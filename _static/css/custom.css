@@ -144,7 +144,7 @@ p {
     background-color: #263673
 }
 
-.rst-content .error .linenos {
+.rst-content .error .linenos .linenodiv{
     background-color: transparent;
 }
 
