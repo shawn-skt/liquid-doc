@@ -38,9 +38,8 @@ Hello World合约的完整Liquid代码如下：
 
 ```eval_rst
   .. raw:: html
-     <style> .red { background-color:red } </style>
 
-  .. role:: red
+     <style> .red { background-color:red } </style>
 
   .. code-block:: rust
      :class: red
