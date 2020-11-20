@@ -144,10 +144,6 @@ p {
     background-color: #263673
 }
 
-.rst-content .error .linenos .linenodiv{
-    background-color: transparent;
-}
-
 .wy-alert,
 .rst-content .note,
 .rst-content .attention,
@@ -160,7 +156,8 @@ p {
 .rst-content .warning,
 .rst-content .seealso,
 .rst-content .admonition-todo {
-    background-color: #d9e5ef
+    background-color: transparent;
+    border-width: 1px;
 }
 
 /* Mobile view */
