@@ -48,58 +48,58 @@ Hello World合约的完整Liquid代码如下：
       }
 ```
 
-```rust
- 1 #![cfg_attr(not(feature = "std"), no_std)]
- 2
- 3 use liquid_lang as liquid;
- 4
- 5 #[macro_use]
- 6 extern crate alloc;
- 7
- 8 #[liquid::contract(version = "0.1.0")]
- 9 mod hello_world {
-10     use liquid_core::storage;
-11
-12     #[liquid(storage)]
-13     struct HelloWorld {
-14         name: storage::Value<String>,
-15     }
-16
-17     #[liquid(methods)]
-18     impl HelloWorld {
-19         pub fn new(&mut self) {
-20             self.name.initialize(String::from("Alice"));
-21         }
-22
-23         pub fn get(&self) -> String {
-24             format!("Hello, {}!", self.name.clone())
-25         }
-26
-27         pub fn set(&mut self, name: String) {
-28             *self.name = name;
-29         }
-30     }
-31
-32     #[cfg(test)]
-33     mod tests {
-34         use super::*;
-35
-36         #[test]
-37         fn get_works() {
-38             let contract = HelloWorld::new();
-39             assert_eq!(contract.get(), String::from("Hello, Alice!"));
-40         }
-41
-42         #[test]
-43         fn set_works() {
-44             let mut contract = HelloWorld::new();
-45
-46             let new_name = String::from("Bob");
-47             contract.set(new_name.clone());
-48             assert_eq!(contract.get(), format!("Hello, {}!", new_name));
-49         }
-50     }
-51 }
+```eval_rst
+.. code-block:: rust
+   :linenos:
+
+   #![cfg_attr(not(feature = "std"), no_std)]
+   use liquid_lang as liquid;
+
+   #[macro_use]
+   extern crate alloc;
+
+   #[liquid::contract(version = "0.1.0")]
+   mod hello_world {
+       use liquid_core::storage;
+
+       #[liquid(storage)]
+       struct HelloWorld {
+           name: storage::Value<String>,
+       }
+
+       #[liquid(methods)]
+       impl HelloWorld {
+           pub fn new(&mut self) {
+               self.name.initialize(String::from("Alice"));
+           }
+
+           pub fn get(&self) -> String {
+               format!("Hello, {}!", self.name.clone())
+           }
+
+           pub fn set(&mut self, name: String) {
+               *self.name = name;
+           }
+       }
+
+       #[cfg(test)]
+       mod tests {
+           use super::*;
+           #[test]
+           fn get_works() {
+               let contract = HelloWorld::new();
+               assert_eq!(contract.get(), String::from("Hello, Alice!"));
+           }
+
+           #[test]
+           fn set_works() {
+               let mut contract = HelloWorld::new();
+               let new_name = String::from("Bob");
+               contract.set(new_name.clone());
+               assert_eq!(contract.get(), format!("Hello, {}!", new_name));
+           }
+       }
+   }
 ```
 
 ### 合约代码浅析
