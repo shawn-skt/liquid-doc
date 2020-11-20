@@ -144,6 +144,10 @@ p {
     background-color: #263673
 }
 
+.rst-content .error .linenos {
+    background-color: transparent;
+}
+
 .wy-alert,
 .rst-content .note,
 .rst-content .attention,
