@@ -53,9 +53,6 @@ Hello World合约的完整Liquid代码如下：
    #![cfg_attr(not(feature = "std"), no_std)]
    use liquid_lang as liquid;
 
-   #[macro_use]
-   extern crate alloc;
-
    #[liquid::contract(version = "0.1.0")]
    mod hello_world {
        use liquid_core::storage;
@@ -72,7 +69,7 @@ Hello World合约的完整Liquid代码如下：
            }
 
            pub fn get(&self) -> String {
-               format!("Hello, {}!", self.name.clone())
+               self.name.clone()
            }
 
            pub fn set(&mut self, name: String) {
@@ -86,7 +83,7 @@ Hello World合约的完整Liquid代码如下：
            #[test]
            fn get_works() {
                let contract = HelloWorld::new();
-               assert_eq!(contract.get(), String::from("Hello, Alice!"));
+               assert_eq!(contract.get(), String::from("Alice"));
            }
 
            #[test]
@@ -94,7 +91,7 @@ Hello World合约的完整Liquid代码如下：
                let mut contract = HelloWorld::new();
                let new_name = String::from("Bob");
                contract.set(new_name.clone());
-               assert_eq!(contract.get(), format!("Hello, {}!", new_name));
+               assert_eq!(contract.get(), new_name));
            }
        }
    }
