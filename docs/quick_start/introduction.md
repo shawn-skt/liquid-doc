@@ -39,8 +39,6 @@ Hello World合约的完整Liquid代码如下：
 ```eval_rst
   .. error::
      .. code-block:: rust
-        :class: red
-        :linenos:
 
         #[liquid::interface]
         mod entry {
