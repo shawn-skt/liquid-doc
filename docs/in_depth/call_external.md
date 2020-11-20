@@ -21,7 +21,7 @@
 - 符号引入：使用`use ... as ...`语法，用于在外部合约声明所使用的模块中引入定义在外部的符号，如：
 
     ```eval_rst
-    .. code-block:: rst
+    .. code-block:: rust
        :linenos:
 
        #[liquid::interface(name = auto)]
@@ -34,7 +34,7 @@
 - 自定义数据结构：使用`struct`结构体语法，用于声明外部合约中所使用到自定义数据结构，如：
 
     ```eval_rst
-    .. code-block:: rst
+    .. code-block:: rust
        :linenos:
 
         #[liquid::interface(name = auto)]
@@ -54,7 +54,7 @@
 - 合约方法：使用`extern`语法声明要调用的外部合约接口，如：
 
     ```eval_rst
-    .. code-block:: rst
+    .. code-block:: rust
        :linenos:
 
         #[liquid::interface(name = auto)]
