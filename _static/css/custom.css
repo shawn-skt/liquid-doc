@@ -156,8 +156,7 @@ p {
 .rst-content .warning,
 .rst-content .seealso,
 .rst-content .admonition-todo {
-    background-color: transparent;
-    border-width: 1px;
+    background-color: #d9e5ef
 }
 
 /* Mobile view */
