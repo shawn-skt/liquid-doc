@@ -43,7 +43,7 @@ Hello World合约的完整Liquid代码如下所示：
    #![cfg_attr(not(feature = "std"), no_std)]
    use liquid_lang as liquid;
 
-   #[liquid::contract(version = "0.1.0")]
+   #[liquid::contract(version = "0.2.0")]
    mod hello_world {
        use liquid_core::storage;
 
@@ -89,26 +89,45 @@ Hello World合约的完整Liquid代码如下所示：
 
 ### 代码解析
 
-代码中第1行：
+- 第1行：
 
-```eval_rst
-.. code-block:: rust
-   :lineno-start: 1
+  ```eval_rst
+  .. code-block:: rust
+    :lineno-start: 1
 
-   #![cfg_attr(not(feature = "std"), no_std)]
-```
+    #![cfg_attr(not(feature = "std"), no_std)]
+  ```
 
-用于向编译器表明，当以非std模式（即编译为Wasm字节码）编译时，启用`no_std`属性。出于安全性的考虑，Wasm对Rust标准包的支持较为有限，因此需要启用该属性以保证您的合约能够运行在Wasm虚拟机上。
+  `cfg_attr`是Rust中的标准属性之一，此行代码用于向编译器告知：若编译时没有使用`std`特性，则在全局范围内启用`no_std`属性。`std`特性由Liquid提供，用于编译出能够在本地运行单元测试的可执行二进制文件。当不使用`std`特性时，编译器会将Liquid项目编译为Wasm格式字节码。由于Wasm虚拟机的运行时环境较为特殊，因此需要启用`no_std`属性以保证编译生成的字节码文件能够运行在Wasm虚拟机上。
 
-第3行用于导入`liquid_lang`包，Liquid诸多特性的实现均位于该包中。
+- 第2行：
 
-第5~6行用于声明`alloc`包，由于我们在拼接字符串时使用了`format!`宏，而`format!`宏需要从Rust语言的基础包`alloc`中导入。
+  ```eval_rst
+  .. code-block:: rust
+    :lineno-start: 2
 
-第8~51行是合约主体。本质上，合约就是一系列函数（合约方法）与数据（状态变量）的集合。在Liquid中，合约方法及状态变量封装于一个由`contract`属性标注的模块中：
+    use liquid_lang as liquid;
+  ```
 
-- 第8行用于向Liquid表明其后跟随的`mod`中的内容是合约主体，同时，通过`contract`属性的参数将合约属性传递给Liquid，合约属性主要包括要使用的Liquid版本等；
+  用于导入`liquid_lang`库并将其重命名为`liquid`。`liquid_lang`库是Liquid项目不可或缺的组成部分，Liquid诸多特性的实现均由该库提供。
 
-- 第12~15行定义了合约的状态变量。在`Hello World`合约中，声明了一个名为`name`、类型为`String`的状态变量。但是我们可以注意到，`name`的类型并没有直接写为`String`，而是写为`storage::Value<String>`。此处的`Value`一种状态变量容器，用于帮助我们访问区块链存储。
+- 第4~45行是Hello World合约的主体，包含了该合约的方法及状态变量的定义：
+
+  - 第4~5行：
+
+    ```eval_rst
+    .. code-block:: rust
+       :lineno-start: 4
+
+       #[liquid::contract(version = "0.2.0")]
+       mod hello_world {
+    ```
+
+    在Liquid中，合约相关的内容都放置于由`contract`属性标注的模块中，并可通过属性参数将某些合约属性传递给Liquid，此处通过`version`参数要求使用0.2.0版本的Liquid编译本合约。
+
+  - 第8~11：
+  
+  定义了合约的状态变量。在`Hello World`合约中，声明了一个名为`name`、类型为`String`的状态变量。但是我们可以注意到，`name`的类型并没有直接写为`String`，而是写为`storage::Value<String>`。此处的`Value`一种状态变量容器，用于帮助我们访问区块链存储。
 
 - 第17~30行定义了合约方法。在HelloWorld合约中，我们定义了三个合约方法：
   - `new`：构造函数。在Liquid合约中，名称为`new`的合约方法会被认为是合约构造函数。构造函数会在合约部署时自动执行。此处的构造函数用于将合约状态变量`name`初始化为"Alice"；
