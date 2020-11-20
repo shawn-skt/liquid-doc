@@ -161,6 +161,7 @@ p {
 
 .rst-content .error .highlighttable {
     margin: 0;
+    padding: 0;
 }
 
 .rst-content .error tbody {
