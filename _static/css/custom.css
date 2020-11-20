@@ -171,6 +171,12 @@ p {
 
 .rst-content .error tbody {
     margin: 0;
+    padding: 0
+}
+
+.rst-content .error tr {
+    margin: 0;
+    padding: 0
 }
 
 .rst-content .error .linenos {
