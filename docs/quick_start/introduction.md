@@ -30,21 +30,22 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 
 ## 从简单合约出发
 
-本小节将会以一个简单`Hello World`合约为例，展示Liquid的基本特性，以帮助您快速建立Liquid的初步认知。此处我们不会对Liquid语言的高级特性及实现细节展开讨论，如果您对此感兴趣，请参考**深入学习**一章。
+本小节将会以一个简单的Hello World合约为例，展示Liquid语言的基本特性，以帮助您快速建立对Liquid的初步认知。此处我们不会对Liquid语言的高级特性及实现细节展开讨论，如果您对此感兴趣，请参考**深入学习**一章。
 
 ### Hello World合约
 
-`Hello World`合约的完整Liquid代码如下：
+Hello World合约的完整Liquid代码如下：
 
 ```eval_rst
-.. code-block:: rust
-    :linenos:
-    :emphasize-lines: 1,2
+.. warning::
+  .. code-block:: rust
+      :linenos:
+      :emphasize-lines: 1,2
 
-    #[liquid::interface]
-    mod entry {
-        // ...
-    }
+      #[liquid::interface]
+      mod entry {
+          // ...
+      }
 ```
 
 ```rust
