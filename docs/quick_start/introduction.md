@@ -70,6 +70,7 @@ Hello World合约的完整Liquid代码如下所示：
        #[cfg(test)]
        mod tests {
            use super::*;
+
            #[test]
            fn get_works() {
                let contract = HelloWorld::new();
@@ -125,19 +126,86 @@ Hello World合约的完整Liquid代码如下所示：
 
     在Liquid中，合约相关的内容都放置于由`contract`属性标注的模块中，并可通过属性参数将某些合约属性传递给Liquid，此处通过`version`参数要求使用0.2.0版本的Liquid编译本合约。
 
-  - 第8~11：
+  - 第8~11定义了合约的状态变量：
+
+    ```eval_rst
+    .. code-block:: rust
+       :lineno-start: 8
+
+       #[liquid(storage)]
+       struct HelloWorld {
+           name: storage::Value<String>,
+       }
+    ```
+
+    在Hello World合约中，只包含一个名为`name`、类型为`String`的状态变量。可以注意到，`name`的类型并没有直接写为`String`，而是写为了`storage::Value<String>`，其中`Value`是一种由Liquid提供状态变量容器，可用于访问区块链存储。更多关于状态变量容器可参考[状态变量与容器](../in_depth/state.html)一节。
+
+  - 第13~26行定义了合约的方法：
+
+    ```eval_rst
+    .. code-block:: rust
+       :lineno-start: 13
+
+       #[liquid(methods)]
+       impl HelloWorld {
+           pub fn new(&mut self) {
+               self.name.initialize(String::from("Alice"));
+           }
+
+           pub fn get(&self) -> String {
+               self.name.clone()
+           }
+
+           pub fn set(&mut self, name: String) {
+               *self.name = name;
+           }
+       }
+    ```
   
-  定义了合约的状态变量。在`Hello World`合约中，声明了一个名为`name`、类型为`String`的状态变量。但是我们可以注意到，`name`的类型并没有直接写为`String`，而是写为`storage::Value<String>`。此处的`Value`一种状态变量容器，用于帮助我们访问区块链存储。
+    在HelloWorld合约中，包含三个方法：
 
-- 第17~30行定义了合约方法。在HelloWorld合约中，我们定义了三个合约方法：
-  - `new`：构造函数。在Liquid合约中，名称为`new`的合约方法会被认为是合约构造函数。构造函数会在合约部署时自动执行。此处的构造函数用于将合约状态变量`name`初始化为"Alice"；
+    - `new`：构造函数。Liquid要求合约必须有且仅有一个构造函数，且构造函数的名称必须为`new`。构造函数会在合约部署时自动执行。此处构造函数用于将合约状态变量`name`初始化为"Alice"；
 
-  - `get`：方法会将状态变量`name`的值拼接至字符串"Hello, "尾部，并将拼接后的新字符串返回给调用者；
+    - `get`：此方法会将状态变量`name`的值返回至调用者；
   
-  - `set`：方法允许调用者向其传递一个字符串参数，并使用该参数修改状态变量`name`的值。
+    - `set`：此方法允许调用者向其传递一个字符串参数，并使用该参数修改状态变量`name`的值。
 
-第32~50行定义了一个专用于单元测试的模块。单元测试并不是合约的的一部分，而是用于在本机运行，以检查合约方法实现逻辑的正确性。第32行是一个编译开关，意为只有当`test`编译标志启用时，其后跟随的模块才会参与编译，否则直接从代码中剔除。当将Liquid编译为Wasm字节码时， `test`编译标志不会启用，因此最后的合约字节码中不会包含任何测试。由于模块会进行命名空间隔离，因此我们需要在第34行从外部导入我们刚刚定义的合约符号，以方便在单元测试中使用。在`tests`模块中，我们编写了2个单元测试，分别用于测试`get`函数和`set`函数的正确性。
+- 第28~44行为Hello World合约的单元测试用例：
+
+  - 第28行：
+
+    ```eval_rst
+    .. code-block:: rust
+       :lineno-start: 28
+
+        #[cfg(test)]
+    ```
+
+    此处为一个编译开关，含义为只有启用`test`编译标志时，其后跟随的模块才会参与编译，否则直接从代码中剔除。当将Liquid项目编译为Wasm格式字节码时，`test`编译标志不会启用，因此最终的字节码中不会包含任何和测试相关的代码。
+
+  - 第31~44行：
+
+    ```eval_rst
+    .. code-block:: rust
+       :lineno-start: 31
+
+       #[test]
+       fn get_works() {
+           let contract = HelloWorld::new();
+           assert_eq!(contract.get(), String::from("Alice"));
+       }
+
+       #[test]
+       fn set_works() {
+           let mut contract = HelloWorld::new();
+           let new_name = String::from("Bob");
+           contract.set(new_name.clone());
+           assert_eq!(contract.get(), new_name));
+       }
+    ```
+
+    此处我们为Hello World合约编写了两个单元测试用例。每一个测试用例都由`#[test]`属性标注，可以分别用于测试`get`方法和`set`方法的正确性。
 
 ## Let's Liquid!
 
-在接下来的篇幅中，我们将介绍Liquid合约开发环境的搭建及基本的开发流程，以帮助您把对于区块链应用的绝妙创意快速变为现实。
+在接下来的篇幅中，我们将介绍Liquid开发环境的搭建及基本的开发流程，以帮助您把对于区块链应用的绝妙创意快速变为现实。
