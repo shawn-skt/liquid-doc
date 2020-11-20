@@ -2,16 +2,16 @@
 
 ## 概述
 
-Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_domain_specific_language)（embedded Domain-Specific Language，eDSL），其特性可以从下列两个方面理解：
+Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_domain_specific_language)（**e**mbedded **D**omain **S**pecific **L**anguage，eDSL），其特性可以从下列两个方面理解：
 
-- **领域特定语言**：领域特定语言是指专用于某个应用程序领域的计算机语言。与能够被应用在各个领域的通用编程语言（如C++、Java等）不同，Liquid是专为区块链底层平台FISCO BCOS设计的、用于编写能够被编译为[Wasm](https://webassembly.org/)字节码格式的智能合约的语言。使用Liquid编写的智能合约能够在内置有Wasm虚拟机的FISCO BCOS区块链节点上运行。
+- **领域特定**：领域特定语言是指专用于某个应用程序领域的计算机语言。与能够被应用在各个领域的通用编程语言（如C++、Java等）不同，Liquid是专为区块链底层平台FISCO BCOS设计的、用于编写能够被编译为[Wasm](https://webassembly.org/)字节码格式的智能合约语言。使用Liquid编写的智能合约能够在内置有Wasm虚拟机的FISCO BCOS区块链节点上运行。
 
-- **嵌入式**：Liquid没有设计新的语法，而是将自身“嵌入”在通用编程语言[Rust](https://www.rust-lang.org/)中，即Rust语言是Liquid的宿主语言。Liquid对Rust语言的部分语法进行了重新诠释，从而能够借助Rust语言来方便地表达智能合约特有的语义。使用Liquid编写的应用程序，本身也是合法的Rust程序，能够使用现有Rust标准工具链进行编译、优化。
+- **嵌入式**：Liquid没有设计新的语法，而是将自身“嵌入”在通用编程语言[Rust](https://www.rust-lang.org/)中，即Rust是Liquid的宿主语言。Liquid对Rust语言的部分语法进行了重新诠释，从而能够借助Rust语言来方便地表达智能合约中特有的语义。使用Liquid编写的智能合约，本身也是合法的Rust程序，能够使用现有Rust标准工具链进行编译、优化。
 
 ```eval_rst
 .. important::
 
-   Liquid选择Rust语言作为宿主语言也意味着，为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考 Rust语言官方教程_。同时，Liquid的基础编程模型与现有的主流智能合约编程语言（如 Solidity_ 或 Vyper_ 等）较为接近，如果您过有使用这些语言进行智能合约开发的经验，将有助于学习使用Liquid。
+   为了能够更好的使用Liquid进行智能合约开发，我们强烈建议您提前掌握Rust语言的基础知识，尤其是借用、生命周期、属性等关键概念。若您此前无Rust语言相关的知识背景，推荐您参考 Rust语言官方教程_。同时，Liquid的合约编程模型与现有的主流智能合约编程语言（如 Solidity_ 或 Vyper_ 等）较为接近，如果您有过使用这些语言进行智能合约开发的经验，将有助于学习和使用Liquid。
 
 .. _Rust语言官方教程: https://doc.rust-lang.org/book/
 .. _Solidity: https://solidity.readthedocs.io/en/latest/
@@ -20,31 +20,21 @@ Liquid是一种[嵌入式领域特定语言](http://wiki.haskell.org/Embedded_do
 
 ## 关键特性
 
-- **丰富的语法、安全的语义**：您能够在Liquid合约中大部分地方中使用Rust提供的语言特性，包括强大的类型系统、移动语义、标准容器及λ表达式等。此外，Rust语言内置的可达性检查、借用检查、生命周期检查及代码风格检查等对于Liquid合约仍然是有效的，这些检查策略可以帮助您写出更加健壮及安全的合约代码
+- **丰富的语法、安全的语义**：您能够在Liquid合约中使用Rust提供的大部分语言特性，包括强大的类型系统、移动语义、标准库及闭包等。此外，Rust编译器内置的可代码达性检查、借用检查、生命周期检查及代码风格检查也同样能够应用于Liquid合约，这些检查策略可以帮助您写出更加健壮及安全的合约代码。
 
-- **高效**：Wasm是一种可移植、体积小、加载快的字节码格式，Liquid支持将合约代码编译为Wasm格式字节码，从而使得您的智能合约能够以更高的效率在在区块链上运行
+- **高效**：Wasm是一种可移植、体积小、加载快的字节码格式，Liquid支持将合约代码编译为Wasm格式字节码，从而使得您的智能合约能够以更高的效率在在区块链系统中运行。
 
-- **支持单元测试**：Liquid支持在合约内部方便地编写单元测试。当以`std`模式编译合约时，Liquid会引导编译器将合约编译为本机机器码并运行单元测试，从而帮助您在部署合约之前发现可能存在的漏洞
+- **支持单元测试**：Liquid支持在项目内部方便地为合约编写单元测试用例，并支持在本地执行这些用例，从而帮助您在正式部署合约之前发现可能存在的漏洞。
 
-- **完全兼容Solidity ABI**：Liquid合约的应用程序二进制接口与Solidity完全兼容，因此Liquid合约可以与Solidity合约互相调用。同时，为Solidity合约开发的应用程序也能够无缝迁移至Liquid
+- **完全兼容Solidity ABI**：Liquid合约的应用程序二进制接口与Solidity完全兼容，因此Liquid合约可以与Solidity合约互相调用，同时，为Solidity合约开发的应用程序也能够无缝迁移至Liquid生态中。
 
 ## 从简单合约出发
 
-本小节将会以一个简单的Hello World合约为例，展示Liquid语言的基本特性，以帮助您快速建立对Liquid的初步认知。此处我们不会对Liquid语言的高级特性及实现细节展开讨论，如果您对此感兴趣，请参考**深入学习**一章。
+本小节将会以一个简单的Hello World合约为例，展示Liquid语言的基本特性，以帮助您快速建立对Liquid的初步认知。如果您对Liquid的高级特性及实现细节感兴趣，请参考**深入学习**一章。
 
-### Hello World合约
+### 合约代码
 
-Hello World合约的完整Liquid代码如下：
-
-```eval_rst
-  .. error::
-     .. code-block:: rust
-
-        #[liquid::interface]
-        mod entry {
-            // ...
-        }
-```
+Hello World合约的完整Liquid代码如下所示：
 
 ```eval_rst
 .. code-block:: rust
@@ -97,9 +87,18 @@ Hello World合约的完整Liquid代码如下：
    }
 ```
 
-### 合约代码浅析
+### 代码解析
 
-第1行用于向编译器表明，当以非std模式（即编译为Wasm字节码）编译时，启用`no_std`属性。出于安全性的考虑，Wasm对Rust标准包的支持较为有限，因此需要启用该属性以保证您的合约能够运行在Wasm虚拟机上。
+代码中第1行：
+
+```eval_rst
+.. code-block:: rust
+   :lineno-start: 1
+
+   #![cfg_attr(not(feature = "std"), no_std)]
+```
+
+用于向编译器表明，当以非std模式（即编译为Wasm字节码）编译时，启用`no_std`属性。出于安全性的考虑，Wasm对Rust标准包的支持较为有限，因此需要启用该属性以保证您的合约能够运行在Wasm虚拟机上。
 
 第3行用于导入`liquid_lang`包，Liquid诸多特性的实现均位于该包中。
 
