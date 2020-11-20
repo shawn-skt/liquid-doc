@@ -159,6 +159,10 @@ p {
     background-color: #d9e5ef
 }
 
+.rst-content .error tbody {
+    margin: 0;
+}
+
 .rst-content .error .linenos {
     margin: 0;
     padding: 0;
