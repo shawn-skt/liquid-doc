@@ -20,6 +20,7 @@ mod entry {
 ```eval_rst
 .. code-block:: rust
    :linenos:
+   :emphasize-lines: 1,5
 
    // Good programming practice
    #[liquid::interface]
