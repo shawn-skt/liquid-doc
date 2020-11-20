@@ -164,6 +164,11 @@ p {
     padding: 0;
 }
 
+.rst-content .error .highlight-rust {
+    margin: 0;
+    padding: 0;
+}
+
 .rst-content .error tbody {
     margin: 0;
 }
