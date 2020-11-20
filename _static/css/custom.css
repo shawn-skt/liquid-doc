@@ -159,10 +159,11 @@ p {
     background-color: #d9e5ef
 }
 
-.rst-content .error .code {
-    background-color: #ffffff
+.rst-content .error .highlighttable {
+    margin: 0
 }
 
+#hello-world > div.admonition.error > div > table > tbody > tr > td.code > div
 
 /* Mobile view */
 
@@ -172,7 +173,6 @@ p {
 
 .wy-nav-top a {
     color: transparent;
-    /*    background-image: url('../images/fabric1.png'); */
     background-repeat: no-repeat;
     background-size: Auto 19px;
     background-position: center top;
