@@ -156,6 +156,10 @@ p {
 .rst-content .warning,
 .rst-content .seealso,
 .rst-content .admonition-todo {
+    background-color: #d9e5ef
+}
+
+.rst-content .error .code-block {
     background-color: #ffffff
 }
 
