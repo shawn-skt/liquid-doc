@@ -99,10 +99,9 @@ git clone https://github.com/bxq2011hust/FISCO-BCOS-1
 ```bash
 cd FISCO-BCOS-1
 git checkout dev-wasm
-mkdir build && cd build && cmake .. && make -j4
 ```
 
-编译过程中会包含对hera及wasmer项目的编译，因此耗时相对于编译常规FISCO BCOS源码较长，请耐心等待。编译完成后，`FISCO-BCOS-1/build/bin`目录下会生成内置Wasm虚拟机的FISCO BCOS二进制程序。
+FISCO BCOS源码编译请参考[这里](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/get_executable.html#id2)，编译过程中会包含对hera及wasmer项目的编译，因此耗时相对于编译常规FISCO BCOS源码较长，请耐心等待。编译完成后，`FISCO-BCOS-1/build/bin`目录下会生成内置Wasm虚拟机的FISCO BCOS二进制程序。
 
 ## 建链
 
