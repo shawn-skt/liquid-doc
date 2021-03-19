@@ -158,6 +158,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    :caption: 测试专区
 
    docs/testing/test_api.md
+   docs/testing/test_external.md
 
 .. toctree::
    :caption: 进阶主题
