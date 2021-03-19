@@ -740,11 +740,7 @@ impl<'a, K, Q, V> core::ops::IndexMut<&'a Q> for Mapping<K, V>
 where
     K: Borrow<Q>,
 {
-    fn index_mut(&mut self, index: &'a Q) -> &mut Self::Output {
-        self.get_mut(index).expect(
-            "[liquid_lang::Mapping::index_mut] Error: expected `index` to be existed",
-        )
-    }
+    fn index_mut(&mut self, index: &'a Q) -> &mut Self::Output;
 }
 ```
 
