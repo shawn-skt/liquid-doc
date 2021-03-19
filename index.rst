@@ -140,6 +140,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/contract/types.md
    docs/contract/intrinsic.md
    docs/contract/call_external.md
+   docs/contract/asset.md
 
 
 .. toctree::
