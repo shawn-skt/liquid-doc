@@ -69,62 +69,30 @@ Liquid 中使用结构体语法（`struct`）对状态变量定义进行封装�
 
 </div>
 
-被`#[liquid(storage)]`属性标注的结构体中至少需要一个状态变量定义，因此不能将其定义为[unit 类型](https://doc.rust-lang.org/std/primitive.unit.html)：
+被`#[liquid(storage)]`属性标注的结构体中至少需要一个状态变量定义，因此不能将其定义为[unit 类型](https://doc.rust-lang.org/std/primitive.unit.html)；同时，由于每个状态变量均需要一个有效的名称，也不能将其定义为[元组类型](https://doc.rust-lang.org/stable/rust-by-example/primitives/tuples.html)。此外，不能为被`#[liquid(storage)]`属性标的结构体声明任何模板参数，即不能在该结构体中使用泛型，也不能为其添加任何可见性声明。下列代码了展示部分错误的使用方式：
 
 <div class="wrong-example">
 
 ```eval_rst
 .. code-block:: rust
    :linenos:
-   :emphasize-lines: 2
+   :emphasize-lines: 3, 7, 11, 17
 
+   // Unit is not allowed.
    #[liquid(storage)]
    struct HelloWorld();
-```
 
-</div>
-
-每个状态变量均需要一个有效的名称，因此不能将`#[liquid(storage)]`属性标的结构体定义为[元组类型](https://doc.rust-lang.org/stable/rust-by-example/primitives/tuples.html)：
-
-<div class="wrong-example">
-
-```eval_rst
-.. code-block:: rust
-   :linenos:
-   :emphasize-lines: 2
-
+   // Tuple is not allowed.
    #[liquid(storage)]
    struct HelloWorld(u8, u32);
-```
 
-</div>
-
-不能为`#[liquid(storage)]`属性标的结构体声明任何模板参数，即不能在该结构体中使用泛型：
-
-<div class="wrong-example">
-
-```eval_rst
-.. code-block:: rust
-   :linenos:
-   :emphasize-lines: 2
-
+   // Generic is not allowed.
    #[liquid(storage)]
    struct HelloWorld<T, E> {
        ...
    }
-```
 
-</div>
-
-不能为`#[liquid(storage)]`属性标的结构体添加任何可见性声明：
-
-<div class="wrong-example">
-
-```eval_rst
-.. code-block:: rust
-   :linenos:
-   :emphasize-lines: 2
-
+   // Visibility is not allowed.
    #[liquid(storage)]
    pub struct HelloWorld {
        ...
@@ -133,7 +101,7 @@ Liquid 中使用结构体语法（`struct`）对状态变量定义进行封装�
 
 </div>
 
-但是可以在状态变量的定义之前添加一个`pub`可见性声明：
+但是可以在状态变量的定义之前添加`pub`可见性声明：
 
 ```eval_rst
 .. code-block:: rust
@@ -146,7 +114,7 @@ Liquid 中使用结构体语法（`struct`）对状态变量定义进行封装�
    }
 ```
 
-`pub`可见性代表外界可以直接访问该状态变量，Liquid 会自动为此类状态变量生成一个公开的访问器。关于访问器的更多细节可参考[合约方法](./method.html#id8)一节。但是除了`pub`可见性以外，其他类型的可见性均不能使用。
+`pub`可见性代表外界可以直接访问该状态变量，Liquid 会自动为此类状态变量生成一个公开的访问器。关于访问器的更多细节可参考[合约方法](./method.html#id8)一节。但是除了`pub`可见性以外，其他种类的可见性声明均不能使用。
 
 ## 容器
 
@@ -843,6 +811,12 @@ pub fn insert(&mut self, key: K, val: V) -> Option<V>
 
 </p>
 </ul>
+
+```eval_rst
+.. admonition:: 注意
+
+   可迭代映射容器的容量大小并不能无限增长，其上限为2 \ :sup:`32` - 1（4294967295，约为42亿）。
+```
 
 ```eval_rst
 .. admonition:: 注意

@@ -54,5 +54,10 @@ img.feature-icon {
 }
 
 ul.method-introduction p {
-    margin-left: 2em;
+    margin-left: 4em;
+    font-size: smaller;
+}
+
+ul.method-introduction div.code-example div.highlight-rust {
+    margin-left: 3.4em;
 }

@@ -66,7 +66,7 @@ Liquid 中使用结构体（`struct`）语法定义事件。结构体中的每�
 ]
 ```
 
-日志记录，`address`字段是合约地址；`data`字段中保存了非索引参数的[ABI 编解码](https://solidity.readthedocs.io/en/v0.7.1/abi-spec.html#formal-specification-of-the-encoding)，此处因为我们只有一个非索引参数`i`，因此`data`字段中只保存了它的值 42；`topics`字段包含了两个可用于索引该事件的值，其中第一个是事件签名的哈希值，第二个则是事件中索引参数`s`的值的哈希值。对于`String`这类动态对象，Liquid 会将它们的哈希值作为事件索引，以提高检索效率并减少存储空间占用。因此若需要在应用中按照字符串检索事件，则需要在本地预先计算待检索字符串的哈希值。
+日志记录，`address`字段是合约地址；`data`字段中保存了非索引参数的[ABI 编码](https://solidity.readthedocs.io/en/v0.7.1/abi-spec.html#formal-specification-of-the-encoding)，此处因为我们只有一个非索引参数`i`，因此`data`字段中只保存了它的值 42；`topics`字段包含了两个可用于索引该事件的值，其中第一个是事件签名的哈希值，第二个则是事件中索引参数`s`的值的哈希值。对于`String`这类动态对象，Liquid 会将它们的哈希值作为事件索引，以提高检索效率并减少存储空间占用。因此若需要在应用中按照字符串检索事件，则需要在本地预先计算待检索字符串的哈希值。
 
 ```eval_rst
 .. admonition:: 注意
