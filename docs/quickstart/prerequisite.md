@@ -1,4 +1,4 @@
-# 环境要求
+# 环境配置
 
 ```eval_rst
 .. admonition:: 注意

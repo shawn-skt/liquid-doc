@@ -131,7 +131,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/quickstart/example.md
 
 .. toctree::
-   :caption: 基本合约
+   :caption: 合约语法
 
    docs/contract/contract_mod.md
    docs/contract/state.md
@@ -140,8 +140,18 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/contract/types.md
    docs/contract/intrinsic.md
    docs/contract/call_external.md
-   docs/contract/asset.md
 
+.. toctree::
+   :caption: 线性资产模型
+
+   docs/asset/asset.md
+
+.. toctree::
+   :caption: 开发测试
+
+   docs/dev_testing/compile_options.md
+   docs/dev_testing/test_api.md
+   docs/dev_testing/test_external.md
 
 .. toctree::
    :caption: 可编程分布式协作
@@ -153,18 +163,10 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/pdc/utilities.md
    docs/pdc/authority.md
 
-
 .. toctree::
-   :caption: 测试专区
-
-   docs/testing/test_api.md
-   docs/testing/test_external.md
-
-.. toctree::
-   :caption: 进阶主题
+   :caption: 原理介绍
 
    docs/advance/design.md
-   docs/advance/compile_options.md
-   docs/advance/bei.md
-   docs/advance/bwci.md
+   docs/advance/fbei.md
+   docs/advance/fbwci.md
 

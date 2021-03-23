@@ -61,3 +61,8 @@ ul.method-introduction p {
 ul.method-introduction div.code-example div.highlight-rust {
     margin-left: 3.4em;
 }
+
+.wy-side-nav-search .wy-dropdown>a img.logo, .wy-side-nav-search>a img.logo {
+    width: 50%;
+    height: 50%;
+}

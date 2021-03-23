@@ -1,10 +1,10 @@
-# BCOS 环境接口规范
+# FISCO BCOS 环境接口规范
 
-BCOS 环境接口（BCOS Environment Interface，BEI）规范中包含区块链底层平台[FISCO BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)向 Wasm 虚拟机公开的应用程序接口（Application Programming Interface，API）。BEI 规范中所有的 API 均由 FISCO BCOS 负责实现，运行于 Wasm 虚拟机中的程序能够直接访问这些 API 以获取区块链的环境及状态。
+FISCO BCOS 环境接口（FISCO BCOS Environment Interface，FBEI）规范中包含区块链底层平台[FISCO BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)向 Wasm 虚拟机公开的应用程序接口（Application Programming Interface，API）。FBEI 规范中所有的 API 均由 FISCO BCOS 负责实现，运行于 Wasm 虚拟机中的程序能够直接访问这些 API 以获取区块链的环境及状态。
 
 ## 数据类型
 
-在 BEI 规范中， API 参数及返回值的数据类型会使用`i32`、`i32ptr`及`i64`三种类型标记，其定义如下：
+在 FBEI 规范中， API 参数及返回值的数据类型会使用`i32`、`i32ptr`及`i64`三种类型标记，其定义如下：
 
 ```eval_rst
 .. list-table::

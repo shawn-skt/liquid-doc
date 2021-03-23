@@ -1,6 +1,6 @@
-# BCOS Wasm 合约接口规范
+# FISCO BCOS Wasm 合约接口规范
 
-BCOS Wasm 合约接口（BCOS Wasm Contract Interface，BWCI）规范中包含关于合约文件格式及内容的约定。符合 BWCI 规范要求合约文件能够在区块链底层平台[FISCO BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)内置的 Wasm 虚拟机中运行。
+FISCO BCOS Wasm 合约接口（FISCO BCOS Wasm Contract Interface，FBWCI）规范中包含关于合约文件格式及内容的约定。符合 FBWCI 规范要求合约文件能够在区块链底层平台[FISCO BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)内置的 Wasm 虚拟机中运行。
 
 ## 传输格式
 
@@ -8,7 +8,7 @@ BCOS Wasm 合约接口（BCOS Wasm Contract Interface，BWCI）规范中包含�
 
 ## 符号导入
 
-合约文件仅能导入在[BCOS 环境接口规范](./bei.md)中规定的接口，所有的接口都需要从名为`bcos`的命名空间中导入，且签名必须与 BCOS 环境接口规范中所声明的接口签名保持一致。除`bcos`命令空间外，还有一个名为`debug`的特殊命名空间。`debug`命名空间中所声明的函数的主要用于虚拟机的调试模式，在正式的生产环境中该命名空间不会被启用，详情请参考[调试模式](./bwci.html#id4)。
+合约文件仅能导入在[BCOS 环境接口规范](./fbei.md)中规定的接口，所有的接口都需要从名为`bcos`的命名空间中导入，且签名必须与 BCOS 环境接口规范中所声明的接口签名保持一致。除`bcos`命令空间外，还有一个名为`debug`的特殊命名空间。`debug`命名空间中所声明的函数的主要用于虚拟机的调试模式，在正式的生产环境中该命名空间不会被启用，详情请参考[调试模式](./bwci.html#id4)。
 
 ## 符号导出
 
@@ -110,4 +110,4 @@ BCOS Wasm 合约接口（BCOS Wasm Contract Interface，BWCI）规范中包含�
 
 ## Start function
 
-[Start function](https://webassembly.github.io/spec/core/syntax/modules.html#start-function) 会在虚拟机载入合约字节码时自动执行，而此时宿主环境尚无法获得虚拟机提供的共享内存的访问权限，因而可能会导致引发运行时异常，因此 BWCI 规范规定合约文件中不允许存在 start function。
+[Start function](https://webassembly.github.io/spec/core/syntax/modules.html#start-function) 会在虚拟机载入合约字节码时自动执行，而此时宿主环境尚无法获得虚拟机提供的共享内存的访问权限，因而可能会导致引发运行时异常，因此 FBWCI 规范规定合约文件中不允许存在 start function。

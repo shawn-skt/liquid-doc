@@ -29,9 +29,9 @@ Rust 源代码文件编译需要经过下列阶段（图中省略了优化等步
 
 2. 随即，编译器启动语法分析流程，将词法分析生成的标记树翻译为 AST（Abstract Syntax Tree，抽象语法树）。在计算机科学中，AST 是源代码语法结构的一种抽象表示，能够方便地被编译器处理。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。上述第 1 步中生成的样例标记树会被翻译为如下图所示的 AST：
 
-    <div align=center>
-        <img src="../../_static/images/advance/ast.png" width=30% alt="ast"/>
-    </div>
+ <div align=center>
+     <img src="../../_static/images/advance/ast.png" width=30% alt="ast"/>
+ </div>
 
 3. 然后，编译器开始分析 AST 并执行宏展开过程。此阶段是是最为重要的阶段，因为 Liquid 主要工作在这个阶段。以[HelloWorld 合约](../quickstart/example.html#id3)为例，编译器构造出 HelloWorld 合约的 AST 后，当扫描至 AST 中表示`#[liquid::contract]"`语句的语法树节点时，编译器能够知道，此处正在调用[属性宏](https://doc.rust-lang.org/reference/procedural-macros.html#attribute-macros)（Rust 中一种特殊的宏），因此会开始寻找`contract`属性宏的定义并尝试进行展开。在 Liquid 中，`contract`属性宏的定义如下：
 
@@ -62,7 +62,7 @@ Liquid 及周边开发工具的整体架构如下图所示：
 
 **Core**组件包含了开发者能够使用的区块链底层功能的实现。以自底向上的视角来看，**engine**模块是 Liquid 智能合约的执行引擎，为合约运行提供了最为坚实的基础。对于上层，**engine**模块提供了一系列基础 API，包括用于读取链上存储的 `get_storage` 接口、用于写入链上存储的 `set_storage` 接口、用于获取当前区块时间戳的 `now` 接口等。对于这些接口，**engine**有两种版本的实现：**off-chain**版本用于在本机执行智能合约的单元测试时使用，其内部模拟了区块链特性（键值对存储、事件记录器等）并提供了测试专用的接口，用于开发者在正式部署合约前测试合约逻辑是否正确；**on-chain**版本用于智能合约在真正地区块链环境中执行时使用，其实现相对较为简单，因为具体实现是由区块链底层平台完成，**on-chain**中只负责对这些接口进行声明并适配即可。
 
-区块链底层接口的规范（名称、参数类型、返回值类型等）由区块链底层平台给出，对于 FISCO BCOS，这个规范称为 BCOS 环境接口规范（BCOS Environment Interface，BEI）。理论上，只要接口规范确定且底层能够提供对应的支持，Liquid 也能够对接其他区块链平台，从而做到“一处编译，处处运行”。
+区块链底层接口的规范（名称、参数类型、返回值类型等）由区块链底层平台给出，对于 FISCO BCOS，这个规范称为 FISCO BCOS 环境接口规范（FISCO BCOS Environment Interface，FBEI）。理论上，只要接口规范确定且底层能够提供对应的支持，Liquid 也能够对接其他区块链平台，从而做到“一处编译，处处运行”。
 
 **Core**组件中的**types**模块提供了智能合约中基本数据类型的定义，如地址（`address`）、字符串（`String`）等。**types**模块与**engine**模块一同构成了智能合约的执行环境，即**env**模块。**storage**模块基于**env**模块提供接口，对链上状态的访问方式进行了进一步的抽象。智能合约需要通过**storage**模块提供的容器类型读写链上状态。若要访问简单合约状态，则可以使用常规容器`Value`；若要以下标的形式序列式地访问合约状态，则可以使用向量容器`Vec`；若要以键值对的形式访问合约状态，则可以使用映射容器`Mapping`；若需要在`Mapping`的基础上根据键对合约状态进行迭代访问，则可以使用可迭代映射容器`IterableMapping`。
 
