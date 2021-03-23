@@ -66,3 +66,7 @@ ul.method-introduction div.code-example div.highlight-rust {
     width: 50%;
     height: 50%;
 }
+
+.wy-side-nav-search {
+    background-color: skyblue;
+}
