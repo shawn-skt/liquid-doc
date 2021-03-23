@@ -87,43 +87,6 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 cargo install --git https://github.com/vita-dounai/cargo-liquid --force
 ```
 
-## 搭建 FISCO BCOS 区块链
-
-当前，FISCO BCOS 对 Wasm 虚拟机的支持尚未合入主干版本，仅开放了实验版本的源代码及可执行二进制文件供开发者体验，因此需要按照以下步骤手动搭建 FISCO BCOS 区块链：
-
-1. 根据[依赖项说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id2)中的要求安装依赖项；
-
-2. 下载实验版本的 FISCO BCOS 可执行二进制文件及建链工具 build_chain.sh：
-
-    ```shell
-    cd ~ && mkdir -p fisco && cd fisco
-    curl -#LO https://github.com/FISCO-BCOS/liquid/releases/download/v1.0.0/fisco-bcos
-    curl -#LO https://github.com/FISCO-BCOS/liquid/releases/download/v1.0.0/build_chain.sh && chmod u+x build_chain.sh
-    ```
-
-3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/build_chain.html)：
-
-    ```shell
-    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545 -e ./fisco-bcos
-    bash nodes/127.0.0.1/start_all.sh
-    ```
-
-## 部署 Node.js SDK
-
-由于 Liquid 当前暂为实验项目，因此目前仅有 FISCO BCOS Node.js SDK 提供的 CLI 工具能够部署及调用 Liquid 智能合约。Node.js SDK 部署方式可参考其[官方文档](https://github.com/FISCO-BCOS/nodejs-sdk#fisco-bcos-nodejs-sdk)。但需要注意的是，Liquid 智能合约相关的功能目前同样未合入 Node.js SDK 的主干版本。因此当从 GitHub 克隆了 Node.js SDK 的源代码后，需要先手动切换至`liquid`分支并随后安装[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)编解码器：
-
-```eval_rst
-.. code-block:: shell
-   :linenos:
-   :emphasize-lines: 2,5
-
-   git clone https://github.com/FISCO-BCOS/nodejs-sdk.git
-   cd nodejs-sdk && git checkout liquid
-   npm install
-   npm run bootstrap
-   cd packages/cli/scale_codec && npm install
-```
-
-## 安装 Binaryen
+## 安装 Binaryen（可选）
 
 Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。目前 Binaryen 仅提供了编译安装的方式，请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)，根据所使用的操作系统选择对应的编译安装方式。

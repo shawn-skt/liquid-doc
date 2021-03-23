@@ -11,7 +11,7 @@
    cargo liquid new collaboration voting
 ```
 
-与基本合约的开发类似，所有代码可以组织在项目根目录下的`lib.rs`文件中。用于构建协作的各组成部分（如合约、权利等）的定义均需要放置于一个由`#[liquid(collaboration)]`属性标注的`mod`代码块内部，如下列代码所示：
+与普通合约的开发类似，所有代码可以组织在项目根目录下的`lib.rs`文件中。用于构建协作的各组成部分（如合约、权利等）的定义均需要放置于一个由`#[liquid(collaboration)]`属性标注的`mod`代码块内部，如下列代码所示：
 
 ```eval_rst
 .. code-block:: rust
@@ -27,7 +27,7 @@
 ```eval_rst
 .. admonition:: 注意
 
-   由于协作与基本合约的内部实现方式与运行机制存在差异，因此协作与基本合约不能够在同一项目中共存，即 ``#[liquid::collaboration]`` 与 ``#[liquid::contract]`` 属性标注的 ``mod`` 代码块不能出现在同一个项目的代码文件中。
+   由于协作与普通合约的内部实现方式与运行机制存在差异，因此协作与普通合约不能够在同一项目中共存，即 ``#[liquid::collaboration]`` 与 ``#[liquid::contract]`` 属性标注的 ``mod`` 代码块不能出现在同一个项目的代码文件中。
 ```
 
 ## 合同模板
@@ -143,7 +143,7 @@
 
 ## 部署
 
-协作的构建方式与基本合约的构建方式相同，在项目根目录执行`cargo +nightly build`命令后（可以根据需求添加`-g`选项），便会在项目根目录下的`target`目录中生成协作的 Wasm 格式字节码及 ABI 文件。协作需要通过 Node.js CLI 工具的`initialize`命令部署至链上：
+协作的构建方式与普通合约的构建方式相同，在项目根目录执行`cargo +nightly build`命令后（可以根据需求添加`-g`选项），便会在项目根目录下的`target`目录中生成协作的 Wasm 格式字节码及 ABI 文件。协作需要通过 Node.js CLI 工具的`initialize`命令部署至链上：
 
 ```
 node ./cli.js exec initialize C:/Users/liche/voting/target/voting.wasm C:/Users/liche/voting/target/voting.abi

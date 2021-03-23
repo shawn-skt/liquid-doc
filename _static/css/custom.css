@@ -62,11 +62,16 @@ ul.method-introduction div.code-example div.highlight-rust {
     margin-left: 3.4em;
 }
 
-.wy-side-nav-search .wy-dropdown>a img.logo, .wy-side-nav-search>a img.logo {
+.wy-side-nav-search .wy-dropdown > a img.logo,
+.wy-side-nav-search > a img.logo {
     width: 50%;
     height: 50%;
 }
 
 .wy-side-nav-search {
     background-color: skyblue;
+}
+
+p.caption span.caption-text {
+    color: skyblue;
 }

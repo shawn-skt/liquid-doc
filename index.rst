@@ -115,7 +115,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
          </div>
          <ul>
             <li>
-               能够根据业务需求对编程模型、语言文法的进行深度定制，例如目前已的集成<a href="./docs/pdc/index.html">可编程分布式协作编程模型</a>
+               能够根据业务需求对编程模型、语言文法的进行深度定制，例如目前已的集成<a href="./docs/pdc/introduction.html">可编程分布式协作编程模型</a>
             </li>
             <li>
                可定制的特性使Liquid拥有无限的可能性，未来还将进一步探索如何与隐私保护、跨链协同等功能相结合
@@ -125,12 +125,14 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    </div>
 
 .. toctree::
+   :hidden:
    :caption: 快速开始
 
    docs/quickstart/prerequisite.md
    docs/quickstart/example.md
 
 .. toctree::
+   :hidden:
    :caption: 合约语法
 
    docs/contract/contract_mod.md
@@ -142,18 +144,22 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/contract/call_external.md
 
 .. toctree::
-   :caption: 线性资产模型
-
-   docs/asset/asset.md
-
-.. toctree::
+   :hidden:
    :caption: 开发测试
 
+   docs/dev_testing/development.md
    docs/dev_testing/compile_options.md
    docs/dev_testing/test_api.md
    docs/dev_testing/test_external.md
 
 .. toctree::
+   :hidden:
+   :caption: 线性资产模型
+
+   docs/asset/asset.md
+
+.. toctree::
+   :hidden:
    :caption: 可编程分布式协作
 
    docs/pdc/introduction.md
@@ -164,9 +170,10 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
    docs/pdc/authority.md
 
 .. toctree::
-   :caption: 原理介绍
+   :hidden:
+   :caption: 参考
 
-   docs/advance/design.md
+   docs/advance/metaprogramming.md
+   docs/advance/architecture.md
    docs/advance/fbei.md
    docs/advance/fbwci.md
-
