@@ -1,7 +1,7 @@
 # Hello World!
 
 ```eval_rst
-.. admonition:: 注意
+.. hint::
 
    为了能够更好地使用Liquid进行智能合约开发，我们强烈建议提前参考 `Rust语言官方教程 <https://doc.rust-lang.org/book/>`_ ，掌握Rust语言的基础知识，尤其借用、生命周期、属性等关键概念。
 ```

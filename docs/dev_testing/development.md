@@ -138,6 +138,13 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 ```
 
 ```eval_rst
+
+.. hint::
+
+   构建过程中会从GitHub拉取Liquid的相关依赖包，若无法正常访问GitHub，则请在项目中将 ``git = "https://github.com/WeBankBlockchain/liquid"`` **全局** 替换为 ``git = "https://gitee.com/WeBankBlockchain/liquid"`` 。
+```
+
+```eval_rst
 .. hint::
 
    如果希望构建出能够在国密版FISCO BCOS区块链底层平台上运行的智能合约，请在执行构建命令时添加-g选项，例如： ``cargo +nightly liquid build -g``。
