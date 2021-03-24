@@ -173,7 +173,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 ```eval_rst
 .. code-block:: shell
    :linenos:
-   :emphasize-lines: 2,5
+   :emphasize-lines: 2,4
 
    git clone https://github.com/FISCO-BCOS/nodejs-sdk.git
    cd nodejs-sdk && git checkout liquid
