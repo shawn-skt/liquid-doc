@@ -16,7 +16,7 @@ LOG_INFO()
 function check_PR()
 {
     if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
-        local skip=$(curl -s https://api.github.com/repos/vita-dounai/liquid-doc/pulls/${TRAVIS_PULL_REQUEST} | grep "title\"" | grep "${skip_check_words}")
+        local skip=$(curl -s https://api.github.com/repos/WeBankBlockchain/liquid-doc/pulls/${TRAVIS_PULL_REQUEST} | grep "title\"" | grep "${skip_check_words}")
         if [ ! -z "${skip}" ]; then
             LOG_INFO "skip PR check!"
             exit 0

@@ -2,7 +2,6 @@
 
 本节将以[HelloWorld 合约](../quickstart/example.html#hello-world)为例介绍 Liquid 智能合约的开发步骤，将会涵盖智能合约的创建、测试、构建、部署及调用等步骤。
 
-
 ## 创建
 
 在终端中执行以下命令创建 Liquid 智能合约项目：

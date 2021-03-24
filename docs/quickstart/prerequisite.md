@@ -84,7 +84,7 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 `cargo-liquid` 是用于辅助开发 Liquid 智能合约的命令行工具，在终端中执行以下命令安装：
 
 ```shell
-cargo install --git https://github.com/vita-dounai/cargo-liquid --force
+cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --force
 ```
 
 ## 安装 Binaryen（可选）
