@@ -133,7 +133,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
 
 .. toctree::
    :hidden:
-   :caption: 合约语法
+   :caption: 基础语法
 
    docs/contract/contract_mod.md
    docs/contract/state.md
@@ -145,7 +145,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
 
 .. toctree::
    :hidden:
-   :caption: 开发测试
+   :caption: 开发与测试
 
    docs/dev_testing/development.md
    docs/dev_testing/compile_options.md
