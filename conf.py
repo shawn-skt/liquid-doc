@@ -84,7 +84,7 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 html_logo = "images\logo.svg"
 html_theme_options = {
     'logo_only': True,
-    'display_version': False,
+    'display_version': True,
 }
 
 
