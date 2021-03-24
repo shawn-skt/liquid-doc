@@ -2,7 +2,9 @@
 Liquid
 ==============
 
-Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rust语言 <https://www.rust-lang.org/>`_ 的 `嵌入式领域特定语言 <http://wiki.haskell.org/Embedded_domain_specific_language>`_ （ embedded Domain Specific Language，eDSL），能够用于编写在 `FISCO BCOS <https://github.com/FISCO-BCOS/FISCO-BCOS>`_ 区块链底层平台上运行的智能合约。
+不断多样化、复杂化的应用场景为智能合约编程语言带来了全新挑战：分布式、不可篡改的执行环境要求智能合约具备更强的隐私安全性与鲁棒性；日渐扩大的服务规模要求智能合约能够更加高效运行；智能合约开发过程需要对开发者更加友好；对于跨链协同等不断涌现的新型计算范式，也需要能够提供原生抽象。在上述背景下，微众银行区块链团队提出了『SPEC』设计规范，即智能合约编程语言应当涵盖 **安全** （Security）、 **性能** （Performance）、 **体验** （Experience）及 **可定制** （Customization） 四大特征。
+
+在『SPEC』规范的指导下，微众银行区块链团队设计并开发了 Liquid 项目，且面向公众完全开源。在实现上， Liquid 是一种 `嵌入式领域特定语言 <http://wiki.haskell.org/Embedded_domain_specific_language>`_ ，对『SPEC』规范提供了全方位的支持，能够用来编写运行于区块链底层平台 `FISCO BCOS <https://github.com/FISCO-BCOS/FISCO-BCOS>`_ 的智能合约。
 
 --------
 关键特性
@@ -19,13 +21,13 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
          </div>
             <ul>
                <li>
-                  内置<a href="./docs/asset/asset.html">线性资产模型</a>，对安全可控、不可复制的资产类型进行了高级抽象，确保链上资产类应用具备金融级安全性
+                  提供<a href="./docs/asset/asset.html">线性资产模型</a>确保链上资产类应用具备金融级安全性
                </li>
                <li>
                   支持在智能合约内部便捷地编写单元测试用例，可通过内嵌的区块链模拟环境直接在本地执行
                </li>
                <li>
-                  算数溢出及内存越界安全检查
+                  内置算数溢出及内存越界安全检查
                </li>
                <li>
                   能够结合模糊测试等工具进行深度测试
@@ -98,6 +100,7 @@ Liquid由微众银行区块链团队开发并完全开源，是一种基于 `Rus
 微众银行区块链团队秉承多方参与、资源共享、友好协作和价值整合的理念，将Liquid项目完全向公众开源，并专设有智能合约编译技术专项兴趣小组（CTSC-SIG），欢迎广大企业及技术爱好者踊跃参与Liquid项目共建。
 
 * `GitHub主页 <https://github.com/FISCO-BCOS/liquid>`_
+* `Gitee主页 <https://gitee.com/WebankBlockchain/liquid>`_
 * `公众号 <_static/images/public_account.png>`_
 * `CTSC-SIG <https://mp.weixin.qq.com/s/NfBZtPWxXdnP0XLLGrQKow>`_
 

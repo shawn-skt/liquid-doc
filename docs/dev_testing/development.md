@@ -175,7 +175,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 ### 部署 Node.js SDK
 
-由于 Liquid 当前暂为实验项目，因此目前仅有 FISCO BCOS Node.js SDK 提供的 CLI 工具能够部署及调用 Liquid 智能合约。Node.js SDK 部署方式可参考其[官方文档](https://github.com/FISCO-BCOS/nodejs-sdk#fisco-bcos-nodejs-sdk)。但需要注意的是，Liquid 智能合约相关的功能目前同样未合入 Node.js SDK 的主干版本。因此当从 GitHub 克隆了 Node.js SDK 的源代码后，需要先手动切换至`liquid`分支并随后安装[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)编解码器：
+由于 Liquid 当前暂为实验项目，因此目前仅有 FISCO BCOS Node.js SDK 提供的 CLI 工具能够部署及调用 Liquid 智能合约。Node.js SDK 部署方式可参考其[官方文档](https://gitee.com/FISCO-BCOS/nodejs-sdk#fisco-bcos-nodejs-sdk)。但需要注意的是，Liquid 智能合约相关的功能目前同样未合入 Node.js SDK 的主干版本。因此当从 GitHub 克隆了 Node.js SDK 的源代码后，需要先手动切换至`liquid`分支并随后安装[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)编解码器：
 
 ```eval_rst
 .. code-block:: shell
@@ -186,6 +186,13 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
    cd nodejs-sdk && git checkout liquid
    npm install
    cd packages/cli/scale_codec && npm install
+```
+
+```eval_rst
+
+.. hint::
+
+   若无法访问GitHub，则请执行 ``git clone https://gitee.com/FISCO-BCOS/nodejs-sdk.git`` 命令克隆Node.js SDK。
 ```
 
 ### 将合约部署至区块链
@@ -209,7 +216,7 @@ Options:
   -h, --help  Show help                                                [boolean]
 ```
 
-执行该命令时需要传入字节码文件的路径及构造函数的参数，并通过`--abi`选项传入 ABI 文件的路径。当根据[配置手册](https://github.com/FISCO-BCOS/nodejs-sdk#22-%E9%85%8D%E7%BD%AE)配置好 CLI 工具后，可以使用以下命令部署 HelloWorld 智能合约。由于合约中的构造函数不接受任何参数，因此无需在部署时提供参数：
+执行该命令时需要传入字节码文件的路径及构造函数的参数，并通过`--abi`选项传入 ABI 文件的路径。当根据配置手册(https://gitee.com/FISCO-BCOS/nodejs-sdk#22-%E9%85%8D%E7%BD%AE)配置好 CLI 工具后，可以使用以下命令部署 HelloWorld 智能合约。由于合约中的构造函数不接受任何参数，因此无需在部署时提供参数：
 
 ```shell
 node ./cli.js exec deploy C:/Users/liche/hello_world/target/hello_world.wasm --abi C:/Users/liche/hello_world/target/hello_world.abi
