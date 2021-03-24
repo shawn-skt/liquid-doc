@@ -178,7 +178,6 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
    git clone https://github.com/FISCO-BCOS/nodejs-sdk.git
    cd nodejs-sdk && git checkout liquid
    npm install
-   npm run bootstrap
    cd packages/cli/scale_codec && npm install
 ```
 
