@@ -1,12 +1,10 @@
-
 # 简介
 
-当使用区块链上的智能合约管理资产时，我们希望合约语言保证资产能够被灵活管理的同时安全的转移。liquid提供一种安全的资产模型，允许用户定义资产类型，资产类型模拟现实中资产的行为，提供一系列安全特性，包括用户声明的资产类型在liquid合约中不可以被复制、代码块中的资产实例在生命周期结束前必须被存储到某个账户、资产存储在用户的账户内、自带溢出检查。
-
+当使用区块链上的智能合约管理资产时，我们希望合约语言保证资产能够被灵活管理的同时安全的转移。liquid 提供一种安全的资产模型，允许用户定义资产类型，资产类型模拟现实中资产的行为，提供一系列安全特性，包括用户声明的资产类型在 liquid 合约中不可以被复制、代码块中的资产实例在生命周期结束前必须被存储到某个账户、资产存储在用户的账户内、自带溢出检查。
 
 # 资产类型声明
 
-Liquid线性资产模型提供合约中资产的定义语法，用户在合约中定义资产后，liquid自动解析用户定义的资产名、资产类型、发行者、描述信息、发行总量等属性，为用户生成资产类型定义、资产类型内置接口、资产注册调用代码、合约支持的资产接口的Rust代码。使用方式如下：
+Liquid 线性资产模型提供合约中资产的定义语法，用户在合约中定义资产后，liquid 自动解析用户定义的资产名、资产类型、发行者、描述信息、发行总量等属性，为用户生成资产类型定义、资产类型内置接口、资产注册调用代码、合约支持的资产接口的 Rust 代码。使用方式如下：
 
 ```rust
 #[liquid(asset(
@@ -18,124 +16,90 @@ Liquid线性资产模型提供合约中资产的定义语法，用户在合约�
 struct SomeAsset;
 ```
 
-- 结构体SomeAsset上的#[liquid(asset(…))]用于声明结构体是资产类型，声明为资产类型的结构体不需要有定义
-- issuer指定资产类型Erc20Token的发行者，只有发行者有权限发行新的Erc20Token资产
-- total指定资产发行的总量，用户不指定则默认为64位无符号整数的最大值
-- fungible表示资产是否是同质资产，true表示同质资产，false表示非同质资产，用户不指定则默认为true
-- description是对资产类型的描述
-- 合约中可以声明多种资产类型
-- 同质资产只有数值的不同，非同质资产代表某种唯一的、不可替代的商品。
+-   结构体 SomeAsset 上的#[liquid(asset(…))]用于声明结构体是资产类型，声明为资产类型的结构体不需要有定义
+-   issuer 指定资产类型 Erc20Token 的发行者，只有发行者有权限发行新的 Erc20Token 资产
+-   total 指定资产发行的总量，用户不指定则默认为 64 位无符号整数的最大值
+-   fungible 表示资产是否是同质资产，true 表示同质资产，false 表示非同质资产，用户不指定则默认为 true
+-   description 是对资产类型的描述
+-   合约中可以声明多种资产类型
+-   同质资产只有数值的不同，非同质资产代表某种唯一的、不可替代的商品。
 
 # 代码生成
 
 ## 同质资产
 
-当用户声明资产类型时，fungible为true，则表明该资产类型是同质资产类型，同质资产类型提供下述接口。
+当用户声明资产类型时，fungible 为 true，则表明该资产类型是同质资产类型，同质资产类型提供下述接口。
 
-
-- register
-  签名：`pub fn register() -> bool;`
-  功能：在链上注册资产
-- total_supply
-  签名：`pub fn total_supply() -> bool;`
-  功能：获取资产总发行量
-- issuer
-  签名：`pub fn issuer() -> address;`
-  功能：获取发行者账户地址
-- description
-  签名：`pub fn description() -> &'a str;`
-  功能：获取资产描述信息
-- balance_of
-  签名：`pub fn balance_of(owner: &address) -> u64;`
-  功能：获取某个账户中此资产的总量
-- issue_to
-  签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
-  功能：为某个充值资产，只有签发者账号可操作
-- withdraw_from_caller
-  签名：`pub fn withdraw_from_caller(amount: u64) -> Option<Self>;`
-  功能：从调用者账户中取出资产，构造相应的对象
-- withdraw_from_self
-  签名：`pub fn withdraw_from_self(amount: u64) -> Option<Self>;`
-  功能：从合约账户中取出资产，构造相应的对象
-- value
-  签名：`pub fn value(&self) -> u64;`
-  功能：获取某个资产对象的值
-- deposit
-  签名：`pub fn deposit(mut self, to: &address);`
-  功能：将资产存储到某个账户中，资产生命周期结束前，必须调用此函数
+-   total_supply
+    签名：`pub fn total_supply() -> bool;`
+    功能：获取资产总发行量
+-   issuer
+    签名：`pub fn issuer() -> address;`
+    功能：获取发行者账户地址
+-   description
+    签名：`pub fn description() -> &'a str;`
+    功能：获取资产描述信息
+-   balance_of
+    签名：`pub fn balance_of(owner: &address) -> u64;`
+    功能：获取某个账户中此资产的总量
+-   issue_to
+    签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
+    功能：为某个充值资产，只有签发者账号可操作
+-   withdraw_from_caller
+    签名：`pub fn withdraw_from_caller(amount: u64) -> Option<Self>;`
+    功能：从调用者账户中取出资产，构造相应的对象
+-   withdraw_from_self
+    签名：`pub fn withdraw_from_self(amount: u64) -> Option<Self>;`
+    功能：从合约账户中取出资产，构造相应的对象
+-   value
+    签名：`pub fn value(&self) -> u64;`
+    功能：获取某个资产对象的值
+-   deposit
+    签名：`pub fn deposit(mut self, to: &address);`
+    功能：将资产存储到某个账户中，资产生命周期结束前，必须调用此函数
 
 ## 非同质资产
 
-当用户声明资产类型时，fungible为false，则表明该资产类型是非同质资产类型。
+当用户声明资产类型时，fungible 为 false，则表明该资产类型是非同质资产类型。
 
-- register
-  签名：`pub fn register() -> bool;`
-  功能：在链上注册资产
-- total_supply
-  签名：`pub fn total_supply() -> bool;`
-  功能：获取资产总发行量
-- issuer
-  签名：`pub fn issuer() -> address;`
-  功能：获取发行者账户地址
-- description
-  签名：`pub fn description() -> &'a str;`
-  功能：获取资产描述信息
-- balance_of
-  签名：`pub fn balance_of(owner: &address) -> u64;`
-  功能：获取某个账户中此资产的总个数
-- tokens_of
-  签名：`pub fn tokens_of(owner: &address) -> Vec<u64>;`
-  功能：获取某个账户中所有此种资产的id
-- issue_to
-  签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
-  功能：为某个充值资产，只有签发者账号可操作
-- withdraw_from_caller
-  签名：`pub fn withdraw_from_caller(id: u64) -> Option<Self>;`
-  功能：从调用者账户中取出资产，构造相应的对象
-- withdraw_from_self
-  签名：`pub fn withdraw_from_self(id: u64) -> Option<Self>;`
-  功能：从合约账户中取出资产，构造相应的对象
-- uri
-  签名：`pub fn uri(&self) -> &String;`
-  功能：获取资产对象的uri
-- id
-  签名：`pub fn id(&self) -> u64;`
-  功能：获取资产对象的id
-- deposit
-  签名：`pub fn deposit(mut self, to: &address);`
-
-```rust
-pub fn issue_to(to: &address, uri: &str) -> Option<u64>;
-```
-
-## 资产注册
-
-在liquid合约中声明的资产类型，在源码编译过程中，liquid会为声明的资产类型自动生成对注册接口的调用。liquid编写的智能合约在部署时，会调用`deploy`接口，在`deploy`接口中会插入对合约内声明的资产注册接口的调用，例如对于SomeAsset资产，会插入类似下面的代码：
-
-```rust
-require(SomeAsset::register(), "register SomeAsset failed");
-```
-
-## support_asset
-
-由于支持将资产存储在合约账户中，为保证接受转账的合约账户的代码有对转入资产的处理逻辑，在将资产存入合约账户时，也就是调用deposit接口时，会调用转入合约的`__liquid_supports_asset`接口检查。
-
-```rust
-pub fn __liquid_supports_asset(&self, asset: String) -> bool {
-                    let result = (move || Self::SUPPORTS_ASSET.contains(&asset))();
-                    if liquid_lang::storage::has_mutable_call_happens() {
-                        liquid_lang :: env :: revert (& String :: from ("attempt to call mutable external interfaces in an immutable \
-                             transaction, all writes will be discarded")) ;
-                    }
-                    result
-                }
-```
+-   total_supply
+    签名：`pub fn total_supply() -> bool;`
+    功能：获取资产总发行量
+-   issuer
+    签名：`pub fn issuer() -> address;`
+    功能：获取发行者账户地址
+-   description
+    签名：`pub fn description() -> &'a str;`
+    功能：获取资产描述信息
+-   balance_of
+    签名：`pub fn balance_of(owner: &address) -> u64;`
+    功能：获取某个账户中此资产的总个数
+-   tokens_of
+    签名：`pub fn tokens_of(owner: &address) -> Vec<u64>;`
+    功能：获取某个账户中所有此种资产的 id
+-   issue_to
+    签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
+    功能：为某个充值资产，只有签发者账号可操作
+-   withdraw_from_caller
+    签名：`pub fn withdraw_from_caller(id: u64) -> Option<Self>;`
+    功能：从调用者账户中取出资产，构造相应的对象
+-   withdraw_from_self
+    签名：`pub fn withdraw_from_self(id: u64) -> Option<Self>;`
+    功能：从合约账户中取出资产，构造相应的对象
+-   uri
+    签名：`pub fn uri(&self) -> &String;`
+    功能：获取资产对象的 uri
+-   id
+    签名：`pub fn id(&self) -> u64;`
+    功能：获取资产对象的 id
+-   deposit
+    签名：`pub fn deposit(mut self, to: &address);`
 
 # 使用举例
 
 ## 声明资产
 
-资产类型的声明需要在合约的mod中，用户只需要定义资产所需的属性和类型名，由liquid生成资产类型的实现和方法。资产类型由名称区分，在链上唯一，重复声明同名资产类型会导致合约回滚。资产类型声明后，由发行者通过资产的发行借口发行到不同账户，每个账户的状态空间中会存储资产的相关信息。
+资产类型的声明需要在合约的 mod 中，用户只需要定义资产所需的属性和类型名，由 liquid 生成资产类型的实现和方法。资产类型由名称区分，在链上唯一，重复声明同名资产类型会导致合约回滚。资产类型声明后，由发行者通过资产的发行借口发行到不同账户，每个账户的状态空间中会存储资产的相关信息。
 
 下面的代码演示在合约中声明一个资产类型，合约中支持用户声明多个资产类型。
 
@@ -205,8 +169,7 @@ let issuer = SomeAsset::issuer();
 
 ## 合约托管资产
 
-为方便用户对资产的灵活操作，用户可以将其持有的资产转给某个合约，由合约逻辑来管理资产。如下的例子，可以允许用户将自己的SomeAsset资产授权给其他用户使用。
-
+为方便用户对资产的灵活操作，用户可以将其持有的资产转给某个合约，由合约逻辑来管理资产。如下的例子，可以允许用户将自己的 SomeAsset 资产授权给其他用户使用。
 
 ```rust
 mod contract {
