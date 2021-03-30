@@ -3,7 +3,7 @@
 Liquid 及周边开发工具的整体架构如下图所示：
 
 <div align=center>
-    <img src="../../_static/images/advance/liquid_arch.png" width=80% alt="ast"/>
+    <img src="../../_static/images/advance/liquid_arch.svg" width=80% alt="ast"/>
 </div>
 
 在整体架构中，`cargo-liquid`是面向开发者的命令行辅助工具，帮助开发者创建及构建 Liquid 项目。在项目创建阶段，`cargo-liquid`能够根据用户选定的项目类型根据模板自动配置编译选项及外部依赖，并生成 ABI 生成器等辅助代码；在项目构建阶段，`cargo-liquid` 负责收集编译元信息并进行跨平台构建，将 Liquid 项目编译为 Wasm 格式字节码。基本构建完成后，`cargo-liquid` 还会使用 Tree-Shaking 算法及 wasm-opt 等工具对生成的字节码进行效率和体积上的进一步优化。
