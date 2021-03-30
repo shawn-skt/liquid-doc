@@ -158,18 +158,24 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 1. 根据[依赖项说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id2)中的要求安装依赖项；
 
-2. 下载实验版本的 FISCO BCOS 可执行二进制文件及建链工具 build_chain.sh：
+2. 下载实验版本的建链工具 build_chain.sh：
 
     ```shell
     cd ~ && mkdir -p fisco && cd fisco
-    curl -#LO https://github.com/WeBankBlockchain/liquid/releases/download/v1.0.0-rc1/fisco-bcos
     curl -#LO https://github.com/WeBankBlockchain/liquid/releases/download/v1.0.0-rc1/build_chain.sh && chmod u+x build_chain.sh
     ```
+
+```eval_rst
+
+.. hint::
+
+   若无法访问GitHub，则请执行 ``curl -#LO https://gitee.com/WeBankBlockchain/liquid/attach_files/651253/download/build_chain.sh`` 命令下载 build_chain.sh。
+```
 
 3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/build_chain.html)：
 
     ```shell
-    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545 -e ./fisco-bcos
+    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545
     bash nodes/127.0.0.1/start_all.sh
     ```
 
