@@ -84,7 +84,7 @@ Liquid
          </div>
          <ul>
             <li>
-               能够根据业务需求对编程模型、语言文法的进行深度定制。目前已的集成<a href="./docs/pdc/introduction.html">可编程分布式协作编程模型</a>
+               能够根据业务需求对编程模型、语言文法的进行深度定制。目前已集成<a href="./docs/pdc/introduction.html">可编程分布式协作编程模型</a>
             </li>
             <li>
                未来将进一步探索如何与跨链协同等编程范式相结合
