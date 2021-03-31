@@ -79,7 +79,7 @@ Liquid
       <div class="feature">
          <img class="feature-icon" src="_static/images/customization.svg" alt="customization">
          <div class="feature-title">
-            <span class ="zh-title">可定制化</span>
+            <span class ="zh-title">定制能力</span>
             <p class="title-initial">C</p><p class="title-rest">ustomization</p>
          </div>
          <ul>
