@@ -99,9 +99,9 @@ Liquid
 
 微众银行区块链团队秉承多方参与、资源共享、友好协作和价值整合的理念，将Liquid项目完全向公众开源，并专设有智能合约编译技术专项兴趣小组（CTSC-SIG），欢迎广大企业及技术爱好者踊跃参与Liquid项目共建。
 
-* `GitHub主页 <https://github.com/FISCO-BCOS/liquid>`_
+* `GitHub主页 <https://github.com/WeBankBlockchain/liquid>`_
 * `Gitee主页 <https://gitee.com/WebankBlockchain/liquid>`_
-* `公众号 <_static/images/public_account.png>`_
+* `公众号 <../../_static/images/public_account.png>`_
 * `CTSC-SIG <https://mp.weixin.qq.com/s/NfBZtPWxXdnP0XLLGrQKow>`_
 
 
