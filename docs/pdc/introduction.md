@@ -8,7 +8,7 @@
     <img src="../../_static/images/pdc/purchase.svg" alt="compile"/>
 </div>
 
-假设购买方 Alice 以借据合同（I Own U，IOU）的形式持有一笔由银行发行的数字资产（可以类比为现实中的货币，因为货币的本质是一种特殊的负债 <a href="https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2014/money-in-the-modern-economy-an-introduction.pdf?la=en&hash=E43CDFDBB5A23D672F4D09B13DF135E6715EEDAC"><sup>1</sup></a> ），并希望购买某商品。此时出售方 Bob 以合同的形式向 Alice 发起一项提议： Alice 可使用她的 IOU 来交换 Bob 的商品。稍后，Alice 接受这份提议，将 IOU 的所有权转移至 Bob，同时 Bob 承诺将商品交接给 Alice。
+假设购买方 Alice 以借据合同（I Owe U，IOU）的形式持有一笔由银行发行的数字资产（可以类比为现实中的货币，因为货币的本质是一种特殊的负债 <a href="https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2014/money-in-the-modern-economy-an-introduction.pdf?la=en&hash=E43CDFDBB5A23D672F4D09B13DF135E6715EEDAC"><sup>1</sup></a> ），并希望购买某商品。此时出售方 Bob 以合同的形式向 Alice 发起一项提议： Alice 可使用她的 IOU 来交换 Bob 的商品。稍后，Alice 接受这份提议，将 IOU 的所有权转移至 Bob，同时 Bob 承诺将商品交接给 Alice。
 
 在上述过程中，接受提议的行为可以理解为 Alice 行使了她在提议合同所赋予她的选择权，同时该行为产生了两个结果。首先，Alice 将她的 IOU 转移给 Bob，实际上也是在行使 IOU 所赋予 Alice 转移所有权的权利，同时该 IOU 的内容作废、属于 Bob 的新 IOU 被创建出来；其次，创建了一份新的采购合同，合同记录了 Alice 和 Bob 对协作内容无异议（Bob 是主动发起提议、Alice 是主动接受提议，双发均是在自愿的情况下达成一致），并规定之后 Bob 必须将商品移交给 Alice。
 
