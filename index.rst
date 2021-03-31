@@ -101,7 +101,7 @@ Liquid
 
 * `GitHub主页 <https://github.com/WeBankBlockchain/liquid>`_
 * `Gitee主页 <https://gitee.com/WebankBlockchain/liquid>`_
-* `公众号 <../../_static/images/public_account.png>`_
+* `公众号 <_static/images/public_account.png>`_
 * `CTSC-SIG <https://mp.weixin.qq.com/s/NfBZtPWxXdnP0XLLGrQKow>`_
 
 
