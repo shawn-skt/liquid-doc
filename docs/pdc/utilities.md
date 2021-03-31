@@ -100,7 +100,7 @@ node ./cli.js sign Offer 0x144d5ca47de35194b019b6f11a56028b964585c9 1
 
 ## sign!宏
 
-`sign!`宏是 Liquid 原生提供的过程宏，用于在权利的执行过程中签署新的合同，无需导入即可直接使用，其使用方式如下所示：
+`sign!`宏是 Liquid 原生提供的过程宏，用于在权利的执行过程中签订新的合同，无需导入即可直接使用，其使用方式如下所示：
 
 ```eval_rst
 .. code-block:: rust

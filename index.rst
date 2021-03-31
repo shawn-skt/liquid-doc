@@ -17,7 +17,7 @@ Liquid
          <img class="feature-icon" src="_static/images/safety.svg" alt="safety">
          <div class="feature-title">
             <span class ="zh-title">安全</span>
-            <p class="title-initial">S</p><p class="title-rest">afety</p>
+            <p class="title-initial">S</p><p class="title-rest">ecurity</p>
          </div>
             <ul>
                <li>
@@ -150,6 +150,7 @@ Liquid
    docs/pdc/right.md
    docs/pdc/utilities.md
    docs/pdc/authority.md
+   docs/pdc/design_pattern.md
 
 .. toctree::
    :hidden:
