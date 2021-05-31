@@ -150,7 +150,6 @@ Liquid
    docs/pdc/right.md
    docs/pdc/utilities.md
    docs/pdc/authority.md
-   docs/pdc/design_pattern.md
 
 .. toctree::
    :hidden:
@@ -160,3 +159,4 @@ Liquid
    docs/advance/architecture.md
    docs/advance/fbei.md
    docs/advance/fbwci.md
+   docs/advance/webank_opensource.md
