@@ -47,7 +47,7 @@
    #[liquid(contract)]
    pub struct Offer {
        #[liquid(signers)]
-       owner: address,
+       owner: Address,
        item_id: ContractId<Item>,
    }
 ```
@@ -68,14 +68,14 @@ node ./cli.js sign Offer 0x144d5ca47de35194b019b6f11a56028b964585c9 1
 
    #[liquid(rights_belong_to = "owner")]
    impl Item {
-       pub fn transfer_item(self, new_owner: address) -> ContractId<Item> {
+       pub fn transfer_item(self, new_owner: Address) -> ContractId<Item> {
            ...
        }
    }
 
    #[liquid(rights_belong_to = "owner")]
    impl Offer {
-       pub fn settle(self, buyer: address) -> ContractId<Item> {
+       pub fn settle(self, buyer: Address) -> ContractId<Item> {
            self.item_id.transfer_item(buyer)
        }
    }
@@ -106,7 +106,7 @@ node ./cli.js sign Offer 0x144d5ca47de35194b019b6f11a56028b964585c9 1
 .. code-block:: rust
    :linenos:
 
-   pub fn add(mut self, voter_addr: address) -> ContractId<Ballot> {
+   pub fn add(mut self, voter_addr: Address) -> ContractId<Ballot> {
        ...
 
        sign! { Ballot =>

@@ -17,7 +17,7 @@
 <li>
 
 ```rust
-pub fn get_caller(self) -> address
+pub fn get_caller(self) -> Address
 ```
 
 </li>
@@ -29,7 +29,7 @@ pub fn get_caller(self) -> address
 <li>
 
 ```rust
-pub fn get_tx_origin(self) -> address
+pub fn get_tx_origin(self) -> Address
 ```
 
 </li>
@@ -53,7 +53,7 @@ pub fn now(self) -> timestamp
 <li>
 
 ```rust
-pub fn get_address(self) -> address
+pub fn get_Address(self) -> Address
 ```
 
 </li>
@@ -63,7 +63,7 @@ pub fn get_address(self) -> address
 <li>
 
 ```rust
-pub fn is_contract(self, account: &address) -> bool
+pub fn is_contract(self, account: &Address) -> bool
 ```
 
 </li>

@@ -83,7 +83,7 @@
            extern "solidity" {
                fn set(&mut self, key: String, value: i256);
                fn set(&mut self, key: String, value: u256);
-               fn set(&mut self, key: String, value: address);
+               fn set(&mut self, key: String, value: Address);
                fn set(&mut self, key: String, value: String);
                ...
            }
@@ -185,7 +185,7 @@
 
 需要先通过外部合约类型构造出外部合约对象后，才能通过外部合约对象调用外部合约公开方法。可使用下列两种方式构造外部合约对象：
 
--   外部合约类型所提供的`at`方法。`at`是一个静态方法，其接受一个`address`类型的参数，其使用方式如下：
+-   外部合约类型所提供的`at`方法。`at`是一个静态方法，其接受一个`Address`类型的参数，其使用方式如下：
 
     ```eval_rst
     .. code-block:: rust
@@ -194,15 +194,15 @@
        let entry = Entry::at("0x1001".parse().unwrap());
     ```
 
--   外部合约类型实现了`From<address>` trait，因此可以通过显式的类型转换将一个`address`类型对象转换为外部合约对象。同时，外部合约类型也实现了`Into<address>` trait，因此外部合约类型可以和地址类型相互转换。类型转换的使用方式如下：
+-   外部合约类型实现了`From<Address>` trait，因此可以通过显式的类型转换将一个`Address`类型对象转换为外部合约对象。同时，外部合约类型也实现了`Into<Address>` trait，因此外部合约类型可以和地址类型相互转换。类型转换的使用方式如下：
 
     ```eval_rst
     .. code-block:: rust
        :linenos:
 
-       let addr_1: address = "0x1001".parse().unwrap();
+       let addr_1: Address = "0x1001".parse().unwrap();
        let entry: Entry = addr_1.into();
-       let addr_2: address = entry.into();
+       let addr_2: Address = entry.into();
        assert_eq!(addr_1, addr_2);
     ```
 

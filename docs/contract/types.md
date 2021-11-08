@@ -1,126 +1,20 @@
 # 类型
 
-由于 Liquid 以 Rust 语言为宿主语言，因此合约中能够使用 Rust 语言支持的[所有数据类型](https://doc.rust-lang.org/book/ch03-02-data-types.html)。为方便合约编写，Liquid 也提供了一系列内置数据类型。此外，出于各种设计考虑（如兼容 Solidity、简化类型检查流程等），在[状态变量](./state.md)、[合约方法](./method.md)及[事件](./event.md)的定义中能够使用的数据类型会受到一定限制。本节将会对这些知识要点进行逐一介绍。
+由于 Liquid 以 Rust 语言为宿主语言，因此合约中能够使用 Rust 语言支持的[所有数据类型](https://doc.rust-lang.org/book/ch03-02-data-types.html)。为方便合约编写，Liquid 也提供了一系列内置数据类型。此外，受编解码机制的限制，在[状态变量](./state.md)、[合约方法](./method.md)及[事件](./event.md)的定义中能够使用的数据类型会受到一定限制。本节将会对这些知识要点进行逐一介绍。
 
 ## 地址类型
 
-地址类型（`address`）专用于表示账户地址，其内部实现是一个长度为 20 的字节数组。构建合约时，Liquid 会自动导入`address`类型的定义，从而能够像使用一个 Rust 语言基本类型一样使用`address`类型。`address`类型提供以下方法：
-
-<ul class="method-introduction">
-<li>
+地址类型（`Address`）是字符串类型`String`的别名，可用于表示账户及合约地址，其定义为：
 
 ```rust
-pub const fn new(addr: [u8; 20]) -> Self
+pub struct Address(String);
 ```
 
-</li>
-<p>
-
-基于一个长度为 20 的字节数组构造`address`类型对象，注意该方法为常量方法（`const fn`）。
-
-</p>
-<li>
+Liquid为`Address`实现了用于与`String`类型相互转换的trait，因此其使用方式与`String`基本一致：
 
 ```rust
-pub const fn empty() -> Self
-```
-
-</li>
-<p>
-构造一个内容为空的`address`类型的对象，注意该方法同样也为常量方法。
-</p>
-</ul>
-
-同时，`address`类型还实现了以下 trait：
-
-<ul class="method-introduction">
-<li>
-
-```rust
-impl Default for Address {
-    fn default() -> Self;
-}
-```
-
-</li>
-<p>
-
-构造一个内容为空的`address`类型的对象，与`address::empty()`的功能相同。
-
-</p>
-<li>
-
-```rust
-impl fmt::Display for Address {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result;
-}
-```
-
-</li>
-<p>
-
-将`address`类型对象转换为可读的格式化 16 进制字符串。同时根据[`ToString`](https://doc.rust-lang.org/stable/alloc/string/trait.ToString.html)trait 的[定义]，所有实现了`Display` trait 的类型将会自动实现`ToString` trait，因此可以在代码中使用如下方式`address`类型对象转换为字符串：
-
-</p>
-<div class="code-example">
-
-```rust
-let addr = ...;
-let addr_str = addr.to_string();
-```
-
-</div>
-
-<li>
-
-```rust
-impl FromStr for Address {
-    fn from_str(mut s: &str) -> Result<Self, Self::Err>;
-}
-```
-
-</li>
-<p>
-
-将一个 16 进制表示的字符串转换为`address`类型对象，字符串可以`0x`或`0X`开头，也可不带任何前缀。当字符串带前缀时，要求字符串长度为 42；不带前缀时则要求长度为 40，若长度不足则会自动在左端补零。若字符串不能表示一个合法的账户地址（如长度超长或包含非法字符），则执行转换时会引发运行时异常。由于[`str`](https://doc.rust-lang.org/stable/std/primitive.str.html)类型为实现了`FromStr` trait 的类型自动实现了`parse`方法，因此可以在代码中使用如下方式将符合要求的字符串转换为`address`类型对象：
-
-</p>
-<div class="code-example">
-
-```rust
-let addr_str = "0x3e9afaa4a062a49d64b8ab057b3cb51892e17ecb";
-let addr = addr_str.parse<address>();
-```
-
-</div>
-<li>
-
-```rust
-impl From<[u8; 20]> for Address {
-    fn from(bytes: [u8; 20]) -> Self;
-}
-```
-
-</li>
-<p>
-将长度为 20 的字节数组转换为`address`类型对象，其使用方式如下：
-</p>
-<div class="code-example">
-
-```rust
-let addr_bytes: [u8; 20] = [0x3e, 0x9a, ...];
-let addr: address = addr_bytes.into();
-```
-
-</div>
-</ul>
-
-此外，`address`类型还实现了`Copy`、`Clone`、`PartialEq`、`Eq`，`PartialOrd`及`Ord` trait，因此可以直接对`address`类型对象使用值拷贝，或在`address`类型对象间进行大小的比较。
-
-```eval_rst
-.. note::
-
-   ``address`` 是 ``Address`` 的类型别名。
+let addr: Address = String::from("/usr/bin/").into();
+assert_eq!(addr.as_bytes(), addr_str.as_bytes());
 ```
 
 ## 动态字节数组类型
@@ -397,9 +291,7 @@ let u: u256 = 1024u32.into();
 
 ## 类型限制
 
-### 状态变量
-
-为节省链上存储空间及提高编解码效率，Liquid 使用了紧凑的二进制编码格式[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)来对状态变量进行编解码。因此只要能够被 SCALE 编解码器编解码的类型都能够用于定义状态变量的实际类型，这些类型包括：
+为节省链上存储空间及提高编解码效率，Liquid 使用了紧凑的二进制编码格式[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)来对状态变量进行编解码。因此只要能够被 SCALE 编解码器编解码的类型，就都能够用于定义状态变量、合约方法参数、合约方法返回值及事件参数的实际类型，这些类型包括：
 
 -   基本类型
 
@@ -407,7 +299,7 @@ let u: u256 = 1024u32.into();
     -   `u8`，`u16`，`u32`，`u64`，`u128`，`u256`
     -   `i8`，`i16`，`i32`，`i64`，`i128`，`i256`
     -   `String`
-    -   `address`
+    -   `Address`
     -   `bytes`
     -   `bytes1`，`bytes2`，...，`bytes32`
     -   `Option`
@@ -420,19 +312,25 @@ let u: u256 = 1024u32.into();
     -   结构体类型
     -   枚举类型，但最多能够有 256 个枚举变体（variants）
 
-当使用复合类型时，Liquid 要求它们的各个成员或元素类型也同样能够被 SCALE 编解码器编解码，特别的，复合类型能够嵌套复合类型，如`Vec<[(u8, address); 5]>`。对于结构体类型，若需要用于定义状态变量的类型，则必须要在结构体定义前 derive `InOut`属性，否则会引发编译报错，其中`State`属性的定义位于`liquid_lang`库中，需要在合约代码中提前导入：
+当使用复合类型时，Liquid 要求它们的各个成员或元素类型也同样能够被 SCALE 编解码器编解码，特别的，复合类型能够嵌套复合类型，如`Vec<[(u8, Address); 5]>`。对于结构体类型，若需要用于定义状态变量的类型，则必须要在结构体定义前 derive `InOut`属性，否则会引发编译报错，其中`InOut`属性的定义位于`liquid_lang`中，需要在合约代码中提前导入：
 
 ```eval_rst
 .. code-block:: rust
    :linenos:
    :emphasize-lines: 1, 3, 11
 
-   use liquid_lang::State;
+   use liquid_lang::InOut;
 
-   #[derive(State)]
+    #[derive(InOut)]
+   pub struct Baz {
+       b: bool,
+       i: Baz,
+   }
+
+   #[derive(InOut)]
    pub struct Foo {
        b: bool,
-       i: i32,
+       i: Baz,
    }
    ...
    #[liquid(storage)]
@@ -471,102 +369,10 @@ let u: u256 = 1024u32.into();
    上述示例中形如 ``storage::Value<Vec<u8>>`` 的容器使用方式并不为我们所推荐。因为这种情况下，每次初次读取该状态变量时，都需要从区块链底层存储读入所有元素的编码并从中解码出完整的动态数组；当更新该状态变量后、需要写回至区块链底层存储时，同样需要对动态数组的所有元素进行编码然后再写回至区块链存储中。当动态数组中的元素个数较多时，编解码过程中将会带来极大的计算开销。正确的方式应该是使用向量容器 ``storage::Vec<u8>`` 。
 ```
 
-### 合约方法参数及返回值
-
-为兼容 Solidity 合约，Liquid 当前采用了 Solidity 所使用的[ABI 编解码](https://solidity.readthedocs.io/en/v0.7.1/abi-spec.html#formal-specification-of-the-encoding)方案来对合约方法的参数及返回值进行编解码。因此只要能够被 ABI 编解码器编解码的类型都能够用作合约方法的参数类型或返回值类型，这些类型包括：
-
--   基本类型
-
-    -   `bool`
-    -   `u8`，`u16`，`u32`，`u64`，`u128`，`u256`
-    -   `i8`，`i16`，`i32`，`i64`，`i128`，`i256`
-    -   `String`
-    -   `address`
-    -   `bytes`
-    -   `bytes1`，`bytes2`，...，`bytes32`
-
--   复合类型
-    -   元组类型
-    -   数组类型
-    -   动态数组类型（`Vec<T>`）
-    -   结构体类型
-
-当使用复合类型时，Liquid 要求它们的各个成员或元素类型也同样能够被 ABI 编解码器编解码。对于结构体类型，若需要用于定义合约方法参数或返回值的类型，则必须要在结构体定义前 derive `InOut`属性，否则会引发编译报错，其中`InOut`属性的定义位于`liquid_lang`库中，需要在合约代码中提前导入：
-
-```eval_rst
-.. code-block:: rust
-   :linenos:
-   :emphasize-lines: 1, 3, 11
-
-   use liquid_lang::InOut;
-
-   #[derive(InOut)]
-   pub struct Foo {
-       b: bool,
-       i: i32,
-   }
-   ...
-   #[liquid(methods)]
-   impl Bar {
-       pub fn bar(&self, foo: Foo) -> Foo {
-           ...
-       }
-   }
-
-```
-
-如果需要某个结构体类型既能够用于定义状态变量的类型，又能够用于定义合约方法参数或返回值的类型，只需要同时 derive `State`、`InOut`两个属性即可：
-
-```eval_rst
-.. code-block:: rust
-   :linenos:
-   :emphasize-lines: 1, 3, 11, 16
-
-   use liquid_lang::{InOut, State};
-
-   #[derive(InOut, State)]
-   pub struct Foo {
-       b: bool,
-       i: i32,
-   }
-
-   #[liquid(storage)]
-   struct Bar {
-       foo: storage::Value<Foo>,
-   }
-
-   #[liquid(methods)]
-   impl Bar {
-       pub fn bar(&self, foo: Foo) -> Foo {
-           ...
-       }
-   }
-```
-
-### 事件参数
-
-为方便依赖事件机制的外部应用能够无缝迁移至 Liquid 生态体系内，Liquid 的事件机制对 Solidity 中的事件机制基本保持兼容。因此，Liquid 事件定义中的参数类型同样需要能够被 ABI 编解码器编解码，事件参数定义中能够使用的数据类型包括：
-
--   基本类型
-
-    -   `bool`
-    -   `u8`，`u16`，`u32`，`u64`，`u128`，`u256`
-    -   `i8`，`i16`，`i32`，`i64`，`i128`，`i256`
-    -   `String`
-    -   `address`
-    -   `bytes`
-    -   `bytes1`，`bytes2`，...，`bytes32`
-
--   复合类型
-    -   元组类型
-    -   数组类型
-    -   动态数组类型（`Vec<T>`）
-    -   结构体类型
-
-对于结构体类型的定义，只需要在其定义前 derive `InOut`属性即可用于定义事件参数的类型。当某个参数被设置为可索引时，其定义中能够使用的类型进一步收窄为：
+事件参数定义中的类型限制与上述规则一致，但当某个参数被设置为可索引时，该参数的定义中能够使用的类型进一步收窄为：
 
 -   `bool`
 -   `u8`，`u16`，`u32`，`u64`，`u128`，`u256`
 -   `i8`，`i16`，`i32`，`i64`，`i128`，`i256`
 -   `String`
--   `address`
+-   `Address`

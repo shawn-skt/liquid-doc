@@ -37,7 +37,7 @@ Liquid 的特色功能之一是能够直接在合约中编写单元测试用例�
 <li>
 
 ```rust
-pub fn set_caller(caller: address)
+pub fn set_caller(caller: Address)
 ```
 
 </li>

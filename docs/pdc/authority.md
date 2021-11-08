@@ -15,8 +15,8 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
        #[liquid(contract)]
        pub struct SimpleIou {
            #[liquid(signers)]
-           issuer: address,
-           owner: address,
+           issuer: Address,
+           owner: Address,
            cash: u32,
        }
    }
@@ -52,15 +52,15 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
        #[liquid(contract)]
        pub struct Iou {
            #[liquid(signers)]
-           issuer: address,
+           issuer: Address,
            #[liquid(signers)]
-           owner: address,
+           owner: Address,
            cash: u32,
        }
 
        #[liquid(rights_belong_to = "owner")]
        impl Iou {
-           pub fn transfer(self, new_owner: address) -> ContractId<Iou> {
+           pub fn transfer(self, new_owner: Address) -> ContractId<Iou> {
                assert!(self.owner != new_owner);
                sign! { Iou =>
                    owner: new_owner,
@@ -175,7 +175,7 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
        pub struct TransferProposal {
            #[liquid(signers = inherited)]
            iou: Iou
-           new_owner: address,
+           new_owner: Address,
        }
 
        #[liquid(rights)]
@@ -212,7 +212,7 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
    :linenos:
 
    #[liquid(belongs_to = "owner")]
-   pub fn propose_transfer(self, new_owner: address) -> ContractId<TransferProposal> {
+   pub fn propose_transfer(self, new_owner: Address) -> ContractId<TransferProposal> {
        assert!(self.owner != new_owner);
        sign! { TransferProposal =>
            iou: self,
@@ -268,7 +268,7 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
    :linenos:
 
    #[liquid(belongs_to = "owner, ^new_owner")]
-   pub fn mutual_transfer(self, new_owner: address) -> ContractId<Iou> {
+   pub fn mutual_transfer(self, new_owner: Address) -> ContractId<Iou> {
        sign! { Iou =>
            owner: new_owner,
            ..self
@@ -284,9 +284,9 @@ PDC 最重要的使命是在分布式环境中，确保所有参与协作的参�
 
    #[liquid(contract)]
    pub struct IouSender {
-       sender: address,
+       sender: Address,
        #[liquid(signers)]
-       receiver: address,
+       receiver: Address,
    }
 
    #[liquid(rights)]

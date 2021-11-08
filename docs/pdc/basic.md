@@ -44,17 +44,17 @@
 
    #[derive(InOut)]
    pub struct Proposal {
-       proposer: address,
+       proposer: Address,
        content: String,
    }
 
    #[liquid(contract)]
    pub struct Decision {
        #[liquid(signers)]
-       government: address,
+       government: Address,
        proposal: Proposal,
        #[liquid(signers)]
-       voters: Vec<address>,
+       voters: Vec<Address>,
        accept: bool,
    }
 ```
@@ -90,20 +90,20 @@
    #[liquid(contract)]
    pub struct Decision {
        #[liquid(signers)]
-       government: address,
+       government: Address,
        proposal: Proposal,
        #[liquid(signers)]
-       voters: Vec<address>,
+       voters: Vec<Address>,
        accept: bool,
    }
 ```
 
 被`#[liquid(signers)]`属性标注的成员的数据类型`T`需要满足下列要求之一：
 
--   `T`为`address`类型；
--   `T`是一个集合类型（如`Vec`、`HashMap`等），但是`&'a T`类型必须实现了`IntoIterator<Item = &'a address>`特性，其中`a`为对应成员变量的生命周期。
+-   `T`为`Address`类型；
+-   `T`是一个集合类型（如`Vec`、`HashMap`等），但是`&'a T`类型必须实现了`IntoIterator<Item = &'a Address>`特性，其中`a`为对应成员变量的生命周期。
 
-在上述代码示例中，`government`成员的数据类型是`address`类型，因此可以用于定义签署方；同理，`voters`的类型是元素类型为`address`的动态数组，但是标准库中为`&'a Vec<address>`实现了`IntoIterator<Item = &'a address>`特性，因此可以同样被用于定义签署方。
+在上述代码示例中，`government`成员的数据类型是`Address`类型，因此可以用于定义签署方；同理，`voters`的类型是元素类型为`Address`的动态数组，但是标准库中为`&'a Vec<Address>`实现了`IntoIterator<Item = &'a Address>`特性，因此可以同样被用于定义签署方。
 
 ```eval_rst
 .. note::
@@ -129,7 +129,7 @@
    #[liquid(contract)]
    pub struct Foo {
        #[liquid(signers)]
-       addr: address,
+       addr: Address,
    }
 
    #[liquid(contract)]
@@ -143,7 +143,7 @@
 
 ## 部署
 
-协作的构建方式与普通合约的构建方式相同，在项目根目录执行`cargo +nightly build`命令后（可以根据需求添加`-g`选项），便会在项目根目录下的`target`目录中生成协作的 Wasm 格式字节码及 ABI 文件。协作需要通过 Node.js CLI 工具的`initialize`命令部署至链上：
+协作的构建方式与普通合约的构建方式相同，在项目根目录执行`cargo liquid build`命令后（可以根据需求添加`-g`选项），便会在项目根目录下的`target`目录中生成协作的 Wasm 格式字节码及 ABI 文件。协作需要通过 Node.js CLI 工具的`initialize`命令部署至链上：
 
 ```
 node ./cli.js exec initialize C:/Users/liche/voting/target/voting.wasm C:/Users/liche/voting/target/voting.abi

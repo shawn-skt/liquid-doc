@@ -34,16 +34,16 @@ struct SomeAsset;
     签名：`pub fn total_supply() -> bool;`
     功能：获取资产总发行量
 -   issuer
-    签名：`pub fn issuer() -> address;`
+    签名：`pub fn issuer() -> Address;`
     功能：获取发行者账户地址
 -   description
     签名：`pub fn description() -> &'a str;`
     功能：获取资产描述信息
 -   balance_of
-    签名：`pub fn balance_of(owner: &address) -> u64;`
+    签名：`pub fn balance_of(owner: &Address) -> u64;`
     功能：获取某个账户中此资产的总量
 -   issue_to
-    签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
+    签名：`pub fn issue_to(to: &Address, amount: u64) -> bool;`
     功能：为某个充值资产，只有签发者账号可操作
 -   withdraw_from_caller
     签名：`pub fn withdraw_from_caller(amount: u64) -> Option<Self>;`
@@ -55,7 +55,7 @@ struct SomeAsset;
     签名：`pub fn value(&self) -> u64;`
     功能：获取某个资产对象的值
 -   deposit
-    签名：`pub fn deposit(mut self, to: &address);`
+    签名：`pub fn deposit(mut self, to: &Address);`
     功能：将资产存储到某个账户中，资产生命周期结束前，必须调用此函数
 
 ## 非同质资产
@@ -66,19 +66,19 @@ struct SomeAsset;
     签名：`pub fn total_supply() -> bool;`
     功能：获取资产总发行量
 -   issuer
-    签名：`pub fn issuer() -> address;`
+    签名：`pub fn issuer() -> Address;`
     功能：获取发行者账户地址
 -   description
     签名：`pub fn description() -> &'a str;`
     功能：获取资产描述信息
 -   balance_of
-    签名：`pub fn balance_of(owner: &address) -> u64;`
+    签名：`pub fn balance_of(owner: &Address) -> u64;`
     功能：获取某个账户中此资产的总个数
 -   tokens_of
-    签名：`pub fn tokens_of(owner: &address) -> Vec<u64>;`
+    签名：`pub fn tokens_of(owner: &Address) -> Vec<u64>;`
     功能：获取某个账户中所有此种资产的 id
 -   issue_to
-    签名：`pub fn issue_to(to: &address, amount: u64) -> bool;`
+    签名：`pub fn issue_to(to: &Address, amount: u64) -> bool;`
     功能：为某个充值资产，只有签发者账号可操作
 -   withdraw_from_caller
     签名：`pub fn withdraw_from_caller(id: u64) -> Option<Self>;`
@@ -93,7 +93,7 @@ struct SomeAsset;
     签名：`pub fn id(&self) -> u64;`
     功能：获取资产对象的 id
 -   deposit
-    签名：`pub fn deposit(mut self, to: &address);`
+    签名：`pub fn deposit(mut self, to: &Address);`
 
 # 使用举例
 
@@ -110,7 +110,7 @@ mod contract {
     /// Defines the storage of your contract.
     #[liquid(storage)]
     struct Contract {
-        allowances: storage::Mapping<(address, address), u64>,
+        allowances: storage::Mapping<(Address, Address), u64>,
     }
 
     #[liquid(asset(
@@ -146,7 +146,7 @@ if let Some(token) == SomeAsset::withdraw_from_caller(amount) {
 
 ```rust
 let amount = 500;
-let recipient:address = "0x11111".parse().unwrap();
+let recipient:Address = "0x11111".parse().unwrap();
 if let Some(token) == SomeAsset::withdraw_from_self(amount) {
     //do something
     token.deposit(&recipient);
@@ -161,7 +161,7 @@ if let Some(token) == SomeAsset::withdraw_from_self(amount) {
 
 ```rust
 let total = SomeAsset::total_supply();
-let user : address = "0x11112".parse().unwrap();
+let user : Address = "0x11112".parse().unwrap();
 let balance = SomeAsset::balance_of(user);
 let description = SomeAsset::description().into();
 let issuer = SomeAsset::issuer();
@@ -178,8 +178,8 @@ mod contract {
     /// Defines the storage of your contract.
     #[liquid(storage)]
     struct Contract {
-        allowances: storage::Mapping<address, u64>,
-        owner: storage::Value<address>,
+        allowances: storage::Mapping<Address, u64>,
+        owner: storage::Value<Address>,
     }
 
     #[liquid(asset(
@@ -189,15 +189,15 @@ mod contract {
     struct SomeAsset;
     #[liquid(methods)]
     impl Contract {
-        pub fn new(&mut self, owner: address) {
+        pub fn new(&mut self, owner: Address) {
             self.allowances.initialize();
             self.owner.initialize(owner);
         }
-        pub fn approve(&mut self, spender: address, amount: u64) -> bool {
+        pub fn approve(&mut self, spender: Address, amount: u64) -> bool {
             match SomeAsset::withdraw_from_caller(amount) {
                 None => false,
                 Some(token) => {
-                    token.deposit(&self.env().get_address());
+                    token.deposit(&self.env().get_Address());
                     let caller = self.env().get_caller();
                     let allowance =
                         *self.allowances.get(&spender).unwrap_or(&0);
@@ -209,7 +209,7 @@ mod contract {
         }
         pub fn transfer(
             &mut self,
-            recipient: address,
+            recipient: Address,
             amount: u64,
         ) -> bool {
             let caller = self.env().get_caller();

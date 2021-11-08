@@ -1,6 +1,6 @@
 # 选择器
 
-在[基本结构](./basic.md)一节中我们已经看到，在定义合同模板时，可以通过`#[liquid(signers)]`属性标注成员，来表示该成员中包含合同的签署方。但是这种方式要求被标注的成员的数据类型要么为`address`类型，要么为包含`address`类型元素的迭代器。在实际应用中，这种限制会造成些许不便，例如，假设在投票场景中，使用下列`Voter`结构体类型来记录投票者信息：
+在[基本结构](./basic.md)一节中我们已经看到，在定义合同模板时，可以通过`#[liquid(signers)]`属性标注成员，来表示该成员中包含合同的签署方。但是这种方式要求被标注的成员的数据类型要么为`Address`类型，要么为包含`Address`类型元素的迭代器。在实际应用中，这种限制会造成些许不便，例如，假设在投票场景中，使用下列`Voter`结构体类型来记录投票者信息：
 
 ```eval_rst
 .. code-block:: rust
@@ -8,7 +8,7 @@
 
     #[derive(InOut)]
     pub struct Voter {
-        addr: address,
+        addr: Address,
         voted: bool,
         choice: bool,
     }
@@ -26,7 +26,7 @@
     #[liquid(contract)]
     pub struct Ballot {
         #[liquid(signers)]
-        government: address,
+        government: Address,
         #[liquid(signers)]  // Oops...
         voters: Vec<Voter>,
         proposal: Proposal,
@@ -47,7 +47,7 @@
     #[liquid(contract)]
     pub struct Ballot {
         #[liquid(signers)]
-        government: address,
+        government: Address,
         #[liquid(signers = "$[..].addr")]
         voters: Vec<Voter>,
         proposal: Proposal,
@@ -78,8 +78,8 @@
 
 使用对象选择器时，要求选择结果的数据类型 `T` 需要满足下列要求之一：
 
-- `T`为`address`类型；
-- `T`是一个集合类型（如`Vec`、`HashMap`等），但是`&'a T`类型必须实现了`IntoIterator<Item = &'a address>`特性，其中`a`为对应成员变量的生命周期。
+- `T`为`Address`类型；
+- `T`是一个集合类型（如`Vec`、`HashMap`等），但是`&'a T`类型必须实现了`IntoIterator<Item = &'a Address>`特性，其中`a`为对应成员变量的生命周期。
 
 ## 函数选择器
 
@@ -91,7 +91,7 @@
 
    #[liquid::collaboration]
    mod voting {
-       fn get_voted_voters(voters: &Vec<voter>) -> impl IntoIterator<Item = &address> {
+       fn get_voted_voters(voters: &Vec<voter>) -> impl IntoIterator<Item = &Address> {
            voters.iter().filter(|&voter| voter.voted).map(|&voter| voter.addr)
        }
 
@@ -106,5 +106,5 @@
 
 与对象选择器相同，函数选择器是一个字符串，但是其中包含了选择函数的绝对路径。绝对路径需要使用Rust语言中的语法表示，且必须以`::`开头。假设被`#[liquid(signers)]`属性标注的数据成员类型为T，则选择函数的签名需要是下列两种之一：
 
-- `Fn(&T) -> impl IntoIterator<Item = &address>`
-- `Fn(&T) -> &address`
+- `Fn(&T) -> impl IntoIterator<Item = &Address>`
+- `Fn(&T) -> &Address`

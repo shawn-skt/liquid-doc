@@ -32,18 +32,19 @@ hello_world/
 │       ├── Cargo.toml
 │       └── main.rs
 ├── Cargo.toml
-└── lib.rs
+└── src
+│   └──lib.rs
 ```
 
 其中各文件的功能如下：
 
 -   `.gitignore`：隐藏文件，用于告诉版本管理软件[Git](https://git-scm.com/)哪些文件或目录不需要被添加到版本管理中。Liquid 会默认将某些不重要的问题件（如编译过程中生成的临时文件）排除在版本管理之外，如果不需要使用 Git 管理对项目版本进行管理，可以忽略该文件；
 
--   `.liquid\`：隐藏目录，用于实现 Liquid 智能合的内部功能，其中`abi_gen`子目录下包含了 ABI 生成器的实现，该目录下的编译配置及代码逻辑是固定的，如果被修改可能会造成无法正常生成 ABI；
+-   `.liquid/`：隐藏目录，用于实现 Liquid 智能合的内部功能，其中`abi_gen`子目录下包含了 ABI 生成器的实现，该目录下的编译配置及代码逻辑是固定的，如果被修改可能会造成无法正常生成 ABI；
 
 -   `Cargo.toml`：项目配置清单，主要包括项目信息、外部库依赖、编译配置等，一般而言无需修改该文件，除非有特殊的需求（如引用额外的第三方库、调整优化等级等）；
 
--   `lib.rs`：Liquid 智能合约项目根文件，合约代码存放于此文件中。智能合约项目创建完毕后，`lib.rs`文件中会自动填充部分样板代码，我们可以基于这些样板代码做进一步的开发。
+-   `src/lib.rs`：Liquid 智能合约项目根文件，合约代码存放于此文件中。智能合约项目创建完毕后，`lib.rs`文件中会自动填充部分样板代码，我们可以基于这些样板代码做进一步的开发。
 
 我们将[HelloWorld 合约](../quickstart/example.html#hello-world)中的代码复制至`lib.rs`文件中后，便可进行后续步骤。
 
@@ -52,7 +53,7 @@ hello_world/
 在正式部署之前，在本地对智能合约进行详尽的单元测试是一种良好的开发习惯。Liquid 内置了对区块链链上环境的模拟，因此即使不将智能合约部署上链，也能够在本地方便地执行单元测试。在 hello_world 项目根目录下执行以下命令即可执行我们预先编写好的单元测试用例：
 
 ```bash
-cargo +nightly test
+cargo test
 ```
 
 ```eval_rst
@@ -60,8 +61,7 @@ cargo +nightly test
 
    上述命令与创建合约项目时的命令有两点不同：
 
-   #. 命令中并不包含 ``liquid`` 子命令，因为Liquid可以使用标准cargo单元测试框架来执行单元测试，因此并不需要调用 ``cargo-liquid`` ；
-   #. 和创建项目时不同，此处的命令中需要加上 ``+nightly`` 选项，以启用nightly版本Rust语言编译工具。该差别在构建智能合约项目时也存在，请务必注意。
+   #. 命令中并不包含 ``liquid`` 子命令，因为Liquid可以使用标准cargo单元测试框架来执行单元测试，因此并不需要调用 ``cargo-liquid`` 。
 ```
 
 命令执行结束后，显示如下内容：
@@ -87,7 +87,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 在 hello_world 项目根目录下执行以下命令即可开始进行构建：
 
 ```bash
-cargo +nightly liquid build
+cargo liquid build
 ```
 
 该命令会引导 Rust 语言编译器以`wasm32-unknown-unknown`为目标对智能合约代码进行编译，最终生成 Wasm 格式字节码及 ABI。命令执行完成后，会显示如下形式的内容：
@@ -149,7 +149,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 ```eval_rst
 .. hint::
 
-   如果希望构建出能够在国密版FISCO BCOS区块链底层平台上运行的智能合约，请在执行构建命令时添加-g选项，例如： ``cargo +nightly liquid build -g``。
+   如果希望构建出能够在国密版FISCO BCOS区块链底层平台上运行的智能合约，请在执行构建命令时添加-g选项，例如： ``cargo liquid build -g``。
 ```
 
 ## 部署
@@ -251,7 +251,7 @@ Call a contract by a function and parameters
 
 Positionals:
   contractName     The name of a contract                    [string] [required]
-  contractAddress  20 Bytes - The address of a contract      [string] [required]
+  contractAddress  20 Bytes - The Address of a contract      [string] [required]
   function         The function of a contract                [string] [required]
   parameters       The parameters(split by space) of a function
                                                            [array] [default: []]

@@ -12,7 +12,7 @@
    #[liquid(contract)]
    pub struct Ballot {
        #[liquid(signers)]
-       government: address,
+       government: Address,
        #[liquid(signers = "$[..](?@.voted).addr")]
        voters: Vec<Voter>,
        proposal: Proposal,
@@ -21,7 +21,7 @@
    #[liquid(rights)]
    impl Ballot {
        #[liquid(belongs_to = "government")]
-       pub fn add(mut self, voter_addr: address) -> ContractId<Ballot> {
+       pub fn add(mut self, voter_addr: Address) -> ContractId<Ballot> {
            ...
        }
    }
@@ -57,7 +57,7 @@
    :emphasize-lines: 1
 
    #[liquid(belongs_to = "voters{ $[..].addr }")]
-   pub fn add(mut self, voter_addr: address) -> ContractId<Ballot> {
+   pub fn add(mut self, voter_addr: Address) -> ContractId<Ballot> {
        ...
    }
 ```
@@ -113,7 +113,7 @@
 
    #[liquid(rights_belong_to = "government")]
    impl Ballot {
-       pub fn add(mut self, voter_addr: address) -> ContractId<Ballot> {
+       pub fn add(mut self, voter_addr: Address) -> ContractId<Ballot> {
            ...
        }
 

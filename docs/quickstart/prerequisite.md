@@ -38,10 +38,9 @@ cargo --version
 
 ```shell
 rustup toolchain install nightly
-rustup target add wasm32-unknown-unknown --toolchain stable
-rustup target add wasm32-unknown-unknown --toolchain nightly
-rustup component add rust-src --toolchain stable
-rustup component add rust-src --toolchain nightly
+rustup target add wasm32-unknown-unknown
+rustup component add rust-src
+rustup component add rustc-dev
 ```
 
 ```eval_rst
