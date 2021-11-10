@@ -4,3 +4,4 @@ sphinx-rtd-theme
 sphinx-markdown-tables
 sphinx-copybutton
 jieba
+docutils<0.18
