@@ -46,7 +46,14 @@ rustup component add rustc-dev
 ```eval_rst
 .. admonition:: 注意
 
-   由于Liquid使用了少量目前尚不稳定的Rust语言特性，因此在构建时需要依赖nightly版本的 ``rustc`` 。但是这些特性目前已经被广泛应用在Rust项目中，因此其可靠性值得信赖。随着Rust语言迭代演进，这些特性终将变为稳定特性。
+   由于Liquid使用了少量目前尚不稳定的Rust语言特性，因此在构建时需要依赖 ``nightly`` 版本的 ``rustc`` 。但是这些特性目前已经被广泛应用在Rust项目中，因此其可靠性值得信赖。随着Rust语言迭代演进，这些特性终将变为稳定特性。
+```
+
+查看当前rustup已安装的版本并切换为nightly
+
+```shell
+rustup toolchain list
+rustup default nightly
 ```
 
 ```eval_rst
@@ -83,15 +90,23 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 `cargo-liquid` 是用于辅助开发 Liquid 智能合约的命令行工具，在终端中执行以下命令安装：
 
 ```shell
-cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --tag v1.0.0-rc1 --force
+cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --branch dev --force
 ```
 
 ```eval_rst
 .. admonition:: 注意
 
-   若无法正常访问GitHub，则请执行 ``cargo install --git https://gitee.com/WeBankBlockchain/cargo-liquid --tag v1.0.0-rc1 --force`` 命令进行安装。
+   若无法正常访问GitHub，则请执行 ``cargo install --git https://gitee.com/WeBankBlockchain/cargo-liquid --branch dev --force`` 命令进行安装。
+```
+
+```eval_rst
+.. admonition:: 注意
+
+   请确保配置 ``cmake`` 环境，Linux环境下建议手动安装cmake，建议安装最新版本。
 ```
 
 ## 安装 Binaryen（可选）
 
-Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。目前 Binaryen 仅提供了编译安装的方式，请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)，根据所使用的操作系统选择对应的编译安装方式。
+Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)。
+
+除根据官方文档的编译安装方式外， Linux下可通过 ``apt-get install binaryen`` 的方式下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否能直接通过包管理器下载）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
