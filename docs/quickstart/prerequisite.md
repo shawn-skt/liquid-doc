@@ -109,4 +109,4 @@ cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --branch de
 
 Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)。
 
-除根据官方文档的编译安装方式外， Linux下可通过 ``apt-get install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看此方式是否可行）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
+除根据官方文档的编译安装方式外， Linux下可通过 ``apt-get install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否可直接通过包管理工具安装）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
