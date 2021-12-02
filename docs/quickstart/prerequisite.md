@@ -49,7 +49,7 @@ rustup component add rustc-dev
    由于Liquid使用了少量目前尚不稳定的Rust语言特性，因此在构建时需要依赖 ``nightly`` 版本的 ``rustc`` 。但是这些特性目前已经被广泛应用在Rust项目中，因此其可靠性值得信赖。随着Rust语言迭代演进，这些特性终将变为稳定特性。
 ```
 
-查看当前rustup已安装的版本并切换为nightly
+查看当前rustup已安装的版本并切换为nightly：
 
 ```shell
 rustup toolchain list
@@ -87,13 +87,13 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 
 ## 安装其他依赖
 
-请确保配置 ``cmake`` 环境，Linux可以通过以下命令安装。
+请确保配置 ``cmake`` 环境，Linux可以通过以下命令安装：
 
 ```shell
 sudo apt install cmak 
 sudo yum install cmake3
 ```
-Mac下可以直接通过 ``homebrew`` 安装
+Mac下可以直接通过 ``homebrew`` 安装：
 
 ```shell
 brew install cmake
