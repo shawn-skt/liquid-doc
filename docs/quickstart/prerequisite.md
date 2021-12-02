@@ -53,7 +53,7 @@ rustup component add rustc-dev
 
 ```shell
 rustup toolchain list
-rustup default nightly
+rustup default nightly-2021-06-23
 ```
 
 ```eval_rst
