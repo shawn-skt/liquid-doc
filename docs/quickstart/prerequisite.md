@@ -85,6 +85,20 @@ replace-with = 'ustc'
 registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 ```
 
+## 安装其他依赖
+
+请确保配置 ``cmake`` 环境，Linux可以通过以下命令安装。
+
+```shell
+sudo apt install cmak 
+sudo yum install cmake3
+```
+Mac下可以直接通过 ``homebrew`` 安装
+
+```shell
+brew install cmake
+```
+
 ## 安装 cargo-liquid
 
 `cargo-liquid` 是用于辅助开发 Liquid 智能合约的命令行工具，在终端中执行以下命令安装：
@@ -99,14 +113,9 @@ cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --branch de
    若无法正常访问GitHub，则请执行 ``cargo install --git https://gitee.com/WeBankBlockchain/cargo-liquid --branch dev --force`` 命令进行安装。
 ```
 
-```eval_rst
-.. admonition:: 注意
-
-   请确保配置 ``cmake`` 环境，Linux环境下建议手动安装cmake，建议安装最新版本。
-```
 
 ## 安装 Binaryen（可选）
 
 Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)。
 
-除根据官方文档的编译安装方式外， Linux下可通过 ``apt-get install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否可直接通过包管理工具安装）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
+除根据官方文档的编译安装方式外， Linux下可通过 ``apt install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否可直接通过包管理工具安装）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
