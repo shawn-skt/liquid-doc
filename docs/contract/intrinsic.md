@@ -53,7 +53,7 @@ pub fn now(self) -> timestamp
 <li>
 
 ```rust
-pub fn get_Address(self) -> Address
+pub fn get_address(self) -> Address
 ```
 
 </li>

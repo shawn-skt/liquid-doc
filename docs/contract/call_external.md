@@ -59,7 +59,7 @@
 
         #[liquid::interface(name = auto)]
         mod entry {
-            extern "solidity" {
+            extern "liquid" {
                 fn getInt(&self, key: String) -> i256;
                 ...
             }
@@ -70,9 +70,9 @@
 
     在用于外部合约声明的模块中，必须有且只能有一个`extern`代码块，且该代码块中需要有至少一个合约方法的声明。`extern`代码块中，只能包含外部合约公开方法的签名，而不能包含其实现。每个外部合约公开方法的签名中，第一个参数必须为接收器，可以为`&self`或`&mut self`，用于表示该方法是否为只读方法。所声明的的只读性必须要和目标方法的只读性一致，否则可能会导致调用失败。外部合约公开方法的声明中无需包含构造函数的声明。
 
-    由于 Solidity 语言支持重载语法，即 Solidity 合约中可能会出现名称相同但参数不同的合约方法。为支持调用这些方法，Liquid 允许在`extern`代码块中声明名称相同但参数类型不同的外部合约公开方法。由于 Rust 语言本身不支持重载语法，因此 Liquid 将会使用特殊手段对这些重载方法提供支持，例如：
+    <!-- 由于 Solidity 语言支持重载语法，即 Solidity 合约中可能会出现名称相同但参数不同的合约方法。为支持调用这些方法，Liquid 允许在`extern`代码块中声明名称相同但参数类型不同的外部合约公开方法。由于 Rust 语言本身不支持重载语法，因此 Liquid 将会使用特殊手段对这些重载方法提供支持，例如： -->
 
-    ```eval_rst
+    <!-- ```eval_rst
     .. code-block:: rust
        :linenos:
        :emphasize-lines: 4-7
@@ -88,15 +88,15 @@
                ...
            }
        }
-    ```
+    ``` -->
 
-    ```eval_rst
+    <!-- ```eval_rst
     .. admonition:: 注意
 
        只能在用于外部合约声明的模块中使用这种语法，合约代码中仍然无法使用重载语法。
-    ```
+    ``` -->
 
-    `extern`关键字后的字符串`"solidity"`用于表示所声明的外部合约使用[ABI 编解码](https://solidity.readthedocs.io/en/v0.7.1/abi-spec.html#formal-specification-of-the-encoding)方案对参数即返回值进行编解码，当前 Liquid 中仅支持调用这类外部合约。
+    <!-- `extern`关键字后的字符串`"solidity"`用于表示所声明的外部合约使用[ABI 编解码](https://solidity.readthedocs.io/en/v0.7.1/abi-spec.html#formal-specification-of-the-encoding)方案对参数即返回值进行编解码，当前 Liquid 中仅支持调用这类外部合约。 -->
 
 外部合约声明的描述对象与合约模块相同，两者均是对智能合约行为的描述，只是外部合约声明中并不包含其行为的具体实现，因此两者在语义上属于同等地位。当需要声明外部合约时，较好的代码组织方式是将外部合约声明与合约模块放置于同级的命名空间中，而不是在合约模块内部放置外部合约声明：
 
@@ -165,7 +165,7 @@
 
    #[liquid::interface(name = auto)]
    mod kv_table_factory {
-       extern "solidity" {
+       extern "liquid" {
            fn openTable(&self, name: String) -> KvTable;
            ...
        }
