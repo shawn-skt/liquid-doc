@@ -30,14 +30,19 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: install dependencies
-        run: apt-get install openssl
-             & apt-get install curl
+        uses: mstksg/get-package@v1
+        with: 
+          apt-get: openssl curl
 
       # Runs a set of commands using the runners shell
       - name: install requirements
-        run: python --version
-             & pip install -r requirements.txt
-             & make html
+        uses: logikal-code/pip-install@v1.0.0
+        with: 
+          requirements: ./requirements.txt
+     
+      - name: run make html
+        run: make html
+        
       # Runs a shell script
       - name: script 
         run: bash ./.ci/ci_check.sh
