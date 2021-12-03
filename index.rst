@@ -134,22 +134,22 @@ Liquid
    docs/dev_testing/test_api.md
    docs/dev_testing/test_external.md
 
-.. toctree::
-   :includehidden:
-   :caption: 线性资产模型
+.. .. toctree::
+..    :hidden:
+..    :caption: 线性资产模型
 
-   docs/asset/asset.md
+..    docs/asset/asset.md
 
-.. toctree::
-   :includehidden:
-   :caption: 可编程分布式协作
+.. .. toctree::
+..    :hidden:
+..    :caption: 可编程分布式协作
 
-   docs/pdc/introduction.md
-   docs/pdc/basic.md
-   docs/pdc/selector.md
-   docs/pdc/right.md
-   docs/pdc/utilities.md
-   docs/pdc/authority.md
+..    docs/pdc/introduction.md
+..    docs/pdc/basic.md
+..    docs/pdc/selector.md
+..    docs/pdc/right.md
+..    docs/pdc/utilities.md
+..    docs/pdc/authority.md
 
 .. toctree::
    :hidden:
