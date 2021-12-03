@@ -20,9 +20,6 @@ Liquid
             <p class="title-initial">S</p><p class="title-rest">ecurity</p>
          </div>
             <ul>
-               .. <li>
-               ..    提供<a href="./docs/asset/asset.html">线性资产模型</a>确保链上资产类应用具备金融级安全性
-               .. </li>
                <li>
                   支持在智能合约内部便捷地编写单元测试用例，可通过内嵌的区块链模拟环境直接在本地执行
                </li>
@@ -84,7 +81,7 @@ Liquid
          </div>
          <ul>
             <li>
-               能够根据业务需求对编程模型、语言文法的进行深度定制。目前已集成<a href="./docs/pdc/introduction.html">可编程分布式协作编程模型</a>
+               能够根据业务需求对编程模型、语言文法的进行深度定制。</a>
             </li>
             <li>
                未来将进一步探索如何与跨链协同等编程范式相结合
@@ -133,6 +130,23 @@ Liquid
    docs/dev_testing/compile_options.md
    docs/dev_testing/test_api.md
    docs/dev_testing/test_external.md
+
+.. toctree::
+   :hidden:
+   :caption: 线性资产模型
+
+   ·· docs/asset/asset.md
+
+.. toctree::
+   :hidden:
+   :caption: 可编程分布式协作
+
+   ·· docs/pdc/introduction.md
+   ·· docs/pdc/basic.md
+   ·· docs/pdc/selector.md
+   ·· docs/pdc/right.md
+   ·· docs/pdc/utilities.md
+   ·· docs/pdc/authority.md
 
 .. toctree::
    :hidden:
