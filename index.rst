@@ -135,13 +135,13 @@ Liquid
    docs/dev_testing/test_external.md
 
 .. toctree::
-   :hidden:
+   :includehidden:
    :caption: 线性资产模型
 
    docs/asset/asset.md
 
 .. toctree::
-   :hidden:
+   :includehidden:
    :caption: 可编程分布式协作
 
    docs/pdc/introduction.md
