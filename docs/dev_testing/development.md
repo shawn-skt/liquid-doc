@@ -178,7 +178,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
     ```
 
 3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/tutorial/air/build_chain.html?highlight=build_chain)：
-    
+
     ```shell
     sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node0/config.ini
     sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node1/config.ini
@@ -194,7 +194,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 .. code-block:: shell
    :linenos:
    :emphasize-lines: 2,4
-   
+
    sudo apt install -y default-jdk
    cd ~/fisco && curl -LO https://github.com/FISCO-BCOS/console/releases/download/v3.0.0-rc1/download_console.sh && bash download_console.sh
    cp -n conf/config-example.toml conf/config.toml
@@ -211,79 +211,64 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 ### 将合约部署至区块链
 
-使用 Node.js SDK CLI 工具提供的`deploy`子命令，我们可以将 Hello World 合约构建生成的 Wasm 格式字节码部署至真实的区块链上，`deploy`子命令的使用说明如下：
+使用 console 提供的`deploy`子命令，我们可以将 Hello World 合约构建生成的 Wasm 格式字节码部署至真实的区块链上，`deploy`子命令的使用说明如下：
 
 ```
-cli.js exec deploy <contract> [parameters..]
 
-Deploy a contract written in Solidity or Liquid
-
-Positionals:
-  contract    The path of the contract                       [string] [required]
-  parameters  The parameters(split by space) of constructor
-                                                           [array] [default: []]
-
-Options:
-  --version   Show version number                                      [boolean]
-  --abi, -a   The path of the corresponding ABI file                    [string]
-  --who, -w   Who will do this operation                                [string]
-  -h, --help  Show help                                                [boolean]
+Usage:
+deploy liquid bin abi path parameters...
+* bin -- The path of binary file after contract being compiled via cargo-liquid.
+* abi -- The path of ABI file after contract being compiled via cargo-liquid.
+* path -- The path where the contract will be located at.
+* parameters -- Parameters will be passed to constructor when deploying the contract.
 ```
 
-执行该命令时需要传入字节码文件的路径及构造函数的参数，并通过`--abi`选项传入 ABI 文件的路径。当根据配置手册(https://gitee.com/FISCO-BCOS/nodejs-sdk#22-%E9%85%8D%E7%BD%AE)配置好 CLI 工具后，可以使用以下命令部署 HelloWorld 智能合约。由于合约中的构造函数不接受任何参数，因此无需在部署时提供参数：
+执行该命令时需要传入**字节码(wasm)**文件的路径、**abi文件**路径、**合约部署路径**及**构造函数的参数**。可以使用以下命令部署 HelloWorld 智能合约。由于合约中的构造函数不接受任何参数，因此无需在部署时提供参数：
 
 ```shell
-node ./cli.js exec deploy C:/Users/liche/hello_world/target/hello_world.wasm --abi C:/Users/liche/hello_world/target/hello_world.abi
+deploy C:/Users/liche/hello_world/target/hello_world.wasm C:/Users/liche/hello_world/target/hello_world.abi /helloworld
 ```
 
 部署成功后，返回如下形式的结果，其中包含状态码、合约地址及交易哈希：
 
-```json
-{
-    "status": "0x0",
-    "contractAddress": "0x039ced1cd5bea5ace04de8e74c66e312ba4a48af",
-    "transactionHash": "0xf84811a5c7a5d3a4452a65e6929a49e69d9a55a0f03b5a03a3e8956f80e9ff41"
-}
+```bash
+transaction hash: 0x08d4b696c02b107e7d4fff122f621d1eeefb81e1764d5d74fd5ae07c4b774a54
+contract address: /hello_world
+currentAccount: 0x0929dcf8268561c573092985a5d2086b03873c40
 ```
 
 ## 调用
 
-使用 Node.js SDK CLI 工具提供的`call`子命令，我们可以调用已被部署到链上的智能合约，`call`子命令的使用方式如下：
+使用 console 提供的`call`子命令，我们可以调用已被部署到链上的智能合约，`call`子命令的使用方式如下：
 
 ```
-cli.js exec call <contractName> <contractAddress> <function> [parameters..]
-
-Call a contract by a function and parameters
-
-Positionals:
-  contractName     The name of a contract                    [string] [required]
-  contractAddress  20 Bytes - The Address of a contract      [string] [required]
-  function         The function of a contract                [string] [required]
-  parameters       The parameters(split by space) of a function
-                                                           [array] [default: []]
-
-Options:
-  --version   Show version number                                      [boolean]
-  --who, -w   Who will do this operation                                [string]
-  -h, --help  Show help                                                [boolean]
+Call a contract by a function and parameters.
+Usage:
+call path function parameters
+* path -- The path where the contract located at, when set to "latest", the path of latest contract deployment will be used.
+* function -- The function of a contract.
+* parameters -- The parameters(splited by a space) of a function.
 ```
 
 执行该命令时需要传入合约名、合约地址、要调用的合约方法名及传递给该合约方法的参数。以调用 HelloWorld 智能合约中的`get`方法为例，可以使用以下命令调用该方法。由于`get`方法不接受任何参数，因此无需在调用时提供参数：
 
 ```bash
-node .\cli.js exec call hello_world 0x039ced1cd5bea5ace04de8e74c66e312ba4a48af get
+[group]: /> call /hello_world get
+
 ```
 
 调用成功后，返回如下形式结果：
 
-```json
-{
-    "status": "0x0",
-    "output": {
-        "function": "get()",
-        "result": ["Alice"]
-    }
-}
+```bash
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (string)
+Return values:(Alice)
+---------------------------------------------------------------------------------------------
 ```
 
-其中`output.result`字段中包含了`get`方法的返回值。可以看到，`get`方法返回了字符串“Alice”。
+其中`Return values`字段中包含了`get`方法的返回值。可以看到，`get`方法返回了字符串“Alice”。
