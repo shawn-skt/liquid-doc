@@ -59,7 +59,7 @@ cargo test
 ```eval_rst
 .. admonition:: 注意
 
-   上述命令与创建合约项目时的命令有两点不同：
+   上述命令与创建合约项目时的命令有所不同：
 
    #. 命令中并不包含 ``liquid`` 子命令，因为Liquid可以使用标准cargo单元测试框架来执行单元测试，因此并不需要调用 ``cargo-liquid`` 。
 ```
@@ -68,16 +68,16 @@ cargo test
 
 ```bash
 running 2 tests
-test hello_world::tests::set_works ... ok
 test hello_world::tests::get_works ... ok
+test hello_world::tests::set_works ... ok
 
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
    Doc-tests hello_world
 
 running 0 tests
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
 从结果中可以看出，所有用例均通过了测试，因此可以有信心认为智能合约中的逻辑实现是正确无误的 😄。我们接下来将开始着手构建 HelloWorld 智能合约，并把它部署至真正的区块链上。
@@ -104,8 +104,6 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 [
     {
         "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "constructor"
     },
     {
@@ -114,26 +112,31 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
         "name": "get",
         "outputs": [
             {
-                "name": "",
+                "internalType": "string",
                 "type": "string"
             }
         ],
-        "payable": false,
-        "stateMutability": "view",
         "type": "function"
     },
     {
+        "conflictFields": [
+            {
+                "kind": 0,
+                "path": [],
+                "read_only": false,
+                "slot": 0
+            }
+        ],
         "constant": false,
         "inputs": [
             {
+                "internalType": "string",
                 "name": "name",
                 "type": "string"
             }
         ],
         "name": "set",
         "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
     }
 ]
@@ -175,32 +178,33 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
     ```
 
 3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/build_chain.html)：
-
+    
     ```shell
     bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545
     bash nodes/127.0.0.1/start_all.sh
     ```
 
-### 部署 Node.js SDK
-
-由于 Liquid 当前暂为实验项目，因此目前仅有 FISCO BCOS Node.js SDK 提供的 CLI 工具能够部署及调用 Liquid 智能合约。Node.js SDK 部署方式可参考其[官方文档](https://gitee.com/FISCO-BCOS/nodejs-sdk#fisco-bcos-nodejs-sdk)。但需要注意的是，Liquid 智能合约相关的功能目前同样未合入 Node.js SDK 的主干版本。因此当从 GitHub 克隆了 Node.js SDK 的源代码后，需要先手动切换至`liquid`分支并随后安装[SCALE](https://substrate.dev/docs/en/knowledgebase/advanced/codec)编解码器：
+### 使用 console
 
 ```eval_rst
 .. code-block:: shell
    :linenos:
    :emphasize-lines: 2,4
 
-   git clone https://github.com/FISCO-BCOS/nodejs-sdk.git
-   cd nodejs-sdk && git checkout liquid
-   npm install
-   cd packages/cli/scale_codec && npm install
+   git clone -b release-3.1.0 https://github.com/FISCO-BCOS/console.git
+   cd console && ./gradlew build
+   cd dist
+   cp -n conf/config-example.toml conf/config.toml
+   #配置SDK证书，将SDK证书拷贝到Java SDK的示例如下(这里假设nodes和console均在fisco目录下)
+   cp -r ../../nodes/127.0.0.1/sdk/* conf/
+   bash start.sh
 ```
 
 ```eval_rst
 
 .. hint::
 
-   若无法访问GitHub，则请执行 ``git clone https://gitee.com/FISCO-BCOS/nodejs-sdk.git`` 命令克隆Node.js SDK。
+   若无法访问GitHub，则请执行 ``git clone https://gitee.com/FISCO-BCOS/console`` 命令克隆 console。
 ```
 
 ### 将合约部署至区块链
