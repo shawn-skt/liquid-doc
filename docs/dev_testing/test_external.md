@@ -13,7 +13,7 @@
    mod kv_table {
        use super::entry::*;
 
-       extern "solidity" {
+       extern "liquid" {
            fn get(&self, primary_key: String) -> (bool, Entry);
            fn set(&mut self, primary_key: String, entry: Entry) -> u8;
            ...
