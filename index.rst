@@ -120,7 +120,7 @@ Liquid
    docs/contract/event.md
    docs/contract/types.md
    docs/contract/intrinsic.md
-   docs/contract/call_external.md
+   ·· docs/contract/call_external.md
 
 .. toctree::
    :hidden:
@@ -129,7 +129,7 @@ Liquid
    docs/dev_testing/development.md
    docs/dev_testing/compile_options.md
    docs/dev_testing/test_api.md
-   docs/dev_testing/test_external.md
+   ·· docs/dev_testing/test_external.md
 
 .. toctree::
    :hidden:
