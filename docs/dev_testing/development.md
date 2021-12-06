@@ -161,50 +161,52 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 当前，FISCO BCOS 对 Wasm 虚拟机的支持尚未合入主干版本，仅开放了实验版本的源代码及可执行二进制文件供开发者体验，因此需要按照以下步骤手动搭建 FISCO BCOS 区块链：
 
-1. 根据[依赖项说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id2)中的要求安装依赖项；
+1. 根据[依赖项说明](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/quick_start/air_installation.html)中的要求安装依赖项；
 
 2. 下载实验版本的建链工具 build_chain.sh：
 
     ```shell
     cd ~ && mkdir -p fisco && cd fisco
-    curl -#LO https://github.com/WeBankBlockchain/liquid/releases/download/v1.0.0-rc1/build_chain.sh && chmod u+x build_chain.sh
+    curl -#LO curl -#LO https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v3.0.0-rc1/build_chain.sh && chmod u+x build_chain.sh && chmod u+x build_chain.sh
     ```
 
     ```eval_rst
 
     .. hint::
 
-       若无法访问GitHub，则请执行 ``curl -#LO https://gitee.com/WeBankBlockchain/liquid/attach_files/651253/download/build_chain.sh`` 命令下载 build_chain.sh。
+       若无法访问GitHub，则请执行 ``curl -#LO https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/FISCO-BCOS/FISCO-BCOS/releases/v3.0.0-rc1/build_chain.sh`` 命令下载 build_chain.sh。
     ```
 
-3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/build_chain.html)：
+3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/tutorial/air/build_chain.html?highlight=build_chain)：
     
     ```shell
-    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545
+    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node0/config.ini
+    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node1/config.ini
+    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node2/config.ini
+    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node3/config.ini
+    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200
     bash nodes/127.0.0.1/start_all.sh
     ```
 
-### 使用 console
+### 配置和使用 console
 
 ```eval_rst
 .. code-block:: shell
    :linenos:
    :emphasize-lines: 2,4
-
-   git clone -b release-3.1.0 https://github.com/FISCO-BCOS/console.git
-   cd console && ./gradlew build
-   cd dist
+   
+   sudo apt install -y default-jdk
+   cd ~/fisco && curl -LO https://github.com/FISCO-BCOS/console/releases/download/v3.0.0-rc1/download_console.sh && bash download_console.sh
    cp -n conf/config-example.toml conf/config.toml
-   #配置SDK证书，将SDK证书拷贝到Java SDK的示例如下(这里假设nodes和console均在fisco目录下)
-   cp -r ../../nodes/127.0.0.1/sdk/* conf/
-   bash start.sh
+   cp -r nodes/127.0.0.1/sdk/* conf/
+   cd ~/fisco/console && bash start.sh
 ```
 
 ```eval_rst
 
 .. hint::
 
-   若无法访问GitHub，则请执行 ``git clone https://gitee.com/FISCO-BCOS/console`` 命令克隆 console。
+   若无法访问GitHub，则请执行 ``curl -#LO https://gitee.com/FISCO-BCOS/console/releases/download/v3.0.0-rc1/download_console.sh`` 命令克隆 console。
 ```
 
 ### 将合约部署至区块链

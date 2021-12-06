@@ -50,6 +50,18 @@ pub fn set_caller(caller: Address)
 <li>
 
 ```rust
+pub fn set_caller_callee(caller: Address, callee: Address)
+```
+
+</li>
+<p>
+
+// FIXME: 添加函数的相关说明
+</p>
+
+<li>
+
+```rust
 pub fn pop_execution_context()
 ```
 
