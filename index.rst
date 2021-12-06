@@ -120,7 +120,7 @@ Liquid
    docs/contract/event.md
    docs/contract/types.md
    docs/contract/intrinsic.md
-   docs/contract/call_external.md
+   ·· docs/contract/call_external.md
 
 .. toctree::
    :hidden:
