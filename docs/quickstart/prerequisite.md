@@ -10,16 +10,16 @@
 
 Liquid 智能合约的构建过程主要依赖 Rust 语言编译器`rustc`及代码组织管理工具`cargo`，且均要求版本号大于或等与 1.50.0。如果此前从未安装过`rustc`及`cargo`，可参考下列步骤进行安装：
 
--   对于 Mac 或 Linux 用户，请在终端中执行以下命令；
+- 对于 Mac 或 Linux 用户，请在终端中执行以下命令；
 
     ```shell
     # 此命令将会自动安装 rustup，rustup 会自动安装 rustc 及 cargo
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
--   对于 32 位 Windows 用户，请从[此处](https://static.rust-lang.org/rustup/dist/i686-pc-windows-msvc/rustup-init.exe)下载安装 32 位版本安装程序。
+- 对于 32 位 Windows 用户，请从[此处](https://static.rust-lang.org/rustup/dist/i686-pc-windows-msvc/rustup-init.exe)下载安装 32 位版本安装程序。
 
--   对于 64 位 Windows 用户，请从[此处](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)下载安装 64 位版本安装程序。
+- 对于 64 位 Windows 用户，请从[此处](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)下载安装 64 位版本安装程序。
 
 如果此前安装过`rustc`及`cargo`，但是未能最低版本要求，则可在终端中执行以下命令进行更新：
 
@@ -90,9 +90,12 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 请确保配置 ``cmake`` 环境，Linux可以通过以下命令安装：
 
 ```shell
-sudo apt install cmak 
+# Ubuntu请执行下面的命令
+sudo apt install cmak
+# CentOS请执行下面的命令
 sudo yum install cmake3
 ```
+
 Mac下可以直接通过 ``homebrew`` 安装：
 
 ```shell
@@ -113,9 +116,8 @@ cargo install --git https://github.com/WeBankBlockchain/cargo-liquid --branch de
    若无法正常访问GitHub，则请执行 ``cargo install --git https://gitee.com/WeBankBlockchain/cargo-liquid --branch dev --force`` 命令进行安装。
 ```
 
-
 ## 安装 Binaryen（可选）
 
 Binaryen 项目中包含了一系列 Wasm 字节码分析及优化工具，其中如 `wasm-opt` 等工具会在 Liquid 智能合约的构建过程中使用。请参考其[官方文档](https://github.com/WebAssembly/binaryen#building)。
 
-除根据官方文档的编译安装方式外， Linux下可通过 ``apt install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否可直接通过包管理工具安装）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。
+除根据官方文档的编译安装方式外， Ubuntu下可通过 ``sudo apt install binaryen`` 下载安装（如使用Ubuntu，则系统版本不低于20.04， 其他操作系统可参照[此处](https://pkgs.org/download/binaryen)查看是否可直接通过包管理工具安装）， Mac下可直接通过 ``brew install binaryen`` 下载安装binaryen。

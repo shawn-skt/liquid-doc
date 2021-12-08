@@ -90,7 +90,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 cargo liquid build
 ```
 
-该命令会引导 Rust 语言编译器以`wasm32-unknown-unknown`为目标对智能合约代码进行编译，最终生成 Wasm 格式字节码及 ABI。命令执行完成后，会显示如下形式的内容：
+该命令会引导 Rust 语言编译器以`wasm32-unknown-unknown`为目标对智能合约代码进行编译，最终生成 Wasm 格式字节码及 ABI。cargo-liquid会在编译过程中对合约代码做冲突字段分析，并将分析结果放在abi文件中，底层根据冲突信息自动并行执行无冲突的合约调用。命令执行完成后，会显示如下形式的内容：
 
 ```
 :-) Done in 9 seconds, your project is ready now:
@@ -159,11 +159,11 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 ### 搭建 FISCO BCOS 区块链
 
-当前，FISCO BCOS 对 Wasm 虚拟机的支持尚未合入主干版本，仅开放了实验版本的源代码及可执行二进制文件供开发者体验，因此需要按照以下步骤手动搭建 FISCO BCOS 区块链：
+当前，FISCO BCOS 3.0已经支持wasm模式，请按照以下步骤手动搭建 FISCO BCOS 区块链：
 
 1. 根据[依赖项说明](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/quick_start/air_installation.html)中的要求安装依赖项；
 
-2. 下载实验版本的建链工具 build_chain.sh：
+2. 下载建链工具 build_chain.sh：
 
     ```shell
     cd ~ && mkdir -p fisco && cd fisco
@@ -180,26 +180,23 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/tutorial/air/build_chain.html?highlight=build_chain)：
 
     ```shell
-    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node0/config.ini
-    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node1/config.ini
-    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node2/config.ini
-    sed -i "s/is_wasm=false/is_wasm=true/g" nodes/127.0.0.1/node3/config.ini
-    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200
+    bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200 -w
     bash nodes/127.0.0.1/start_all.sh
     ```
 
 ### 配置和使用 console
+
+请参考[这里](https://fisco-bcos-documentation-3x.readthedocs.io/zh_CN/latest/docs/quick_start/air_installation.html#id7)安装依赖，下文是安装Java之后的console下载和配置步骤。
 
 ```eval_rst
 .. code-block:: shell
    :linenos:
    :emphasize-lines: 2,4
 
-   sudo apt install -y default-jdk
    cd ~/fisco && curl -LO https://github.com/FISCO-BCOS/console/releases/download/v3.0.0-rc1/download_console.sh && bash download_console.sh
-   cp -n conf/config-example.toml conf/config.toml
-   cp -r nodes/127.0.0.1/sdk/* conf/
-   cd ~/fisco/console && bash start.sh
+   cp -n console/conf/config-example.toml console/conf/config.toml
+   cp -r nodes/127.0.0.1/sdk/* console/conf/
+   cd console && bash start.sh
 ```
 
 ```eval_rst
@@ -211,9 +208,9 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 ### 将合约部署至区块链
 
-使用 console 提供的`deploy`子命令，我们可以将 Hello World 合约构建生成的 Wasm 格式字节码部署至真实的区块链上，`deploy`子命令的使用说明如下：
+使用 console 提供的`deploy`子命令，我们可以将 Hello World 合约构建生成的 Wasm 格式字节码部署至区块链上，`deploy`子命令的使用说明如下：
 
-```
+```bash
 
 Usage:
 deploy liquid bin abi path parameters...
