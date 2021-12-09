@@ -24,7 +24,7 @@ cd ./hello_world
 
 hello_world 目录内的文件结构如下所示：
 
-```
+```bash
 hello_world/
 ├── .gitignore
 ├── .liquid
@@ -38,13 +38,13 @@ hello_world/
 
 其中各文件的功能如下：
 
--   `.gitignore`：隐藏文件，用于告诉版本管理软件[Git](https://git-scm.com/)哪些文件或目录不需要被添加到版本管理中。Liquid 会默认将某些不重要的问题件（如编译过程中生成的临时文件）排除在版本管理之外，如果不需要使用 Git 管理对项目版本进行管理，可以忽略该文件；
+- `.gitignore`：隐藏文件，用于告诉版本管理软件[Git](https://git-scm.com/)哪些文件或目录不需要被添加到版本管理中。Liquid 会默认将某些不重要的问题件（如编译过程中生成的临时文件）排除在版本管理之外，如果不需要使用 Git 管理对项目版本进行管理，可以忽略该文件；
 
--   `.liquid/`：隐藏目录，用于实现 Liquid 智能合的内部功能，其中`abi_gen`子目录下包含了 ABI 生成器的实现，该目录下的编译配置及代码逻辑是固定的，如果被修改可能会造成无法正常生成 ABI；
+- `.liquid/`：隐藏目录，用于实现 Liquid 智能合的内部功能，其中`abi_gen`子目录下包含了 ABI 生成器的实现，该目录下的编译配置及代码逻辑是固定的，如果被修改可能会造成无法正常生成 ABI；
 
--   `Cargo.toml`：项目配置清单，主要包括项目信息、外部库依赖、编译配置等，一般而言无需修改该文件，除非有特殊的需求（如引用额外的第三方库、调整优化等级等）；
+- `Cargo.toml`：项目配置清单，主要包括项目信息、外部库依赖、编译配置等，一般而言无需修改该文件，除非有特殊的需求（如引用额外的第三方库、调整优化等级等）；
 
--   `src/lib.rs`：Liquid 智能合约项目根文件，合约代码存放于此文件中。智能合约项目创建完毕后，`lib.rs`文件中会自动填充部分样板代码，我们可以基于这些样板代码做进一步的开发。
+- `src/lib.rs`：Liquid 智能合约项目根文件，合约代码存放于此文件中。智能合约项目创建完毕后，`lib.rs`文件中会自动填充部分样板代码，我们可以基于这些样板代码做进一步的开发。
 
 我们将[HelloWorld 合约](../quickstart/example.html#hello-world)中的代码复制至`lib.rs`文件中后，便可进行后续步骤。
 
@@ -161,7 +161,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 当前，FISCO BCOS 3.0已经支持wasm模式，请按照以下步骤手动搭建 FISCO BCOS 区块链：
 
-1. 根据[依赖项说明](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/quick_start/air_installation.html)中的要求安装依赖项；
+1. 根据[依赖项说明](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/docs/quick_start/air_installation.html)中的要求安装依赖项；
 
 2. 下载建链工具 build_chain.sh：
 
@@ -177,7 +177,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
        若无法访问GitHub，则请执行 ``curl -#LO https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/FISCO-BCOS/FISCO-BCOS/releases/v3.0.0-rc1/build_chain.sh`` 命令下载 build_chain.sh。
     ```
 
-3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-documentation-3x.readthedocs.io/zh/release-3.0.0/docs/tutorial/air/build_chain.html?highlight=build_chain)：
+3. 使用 build_chain.sh 在本地搭建一条单群组 4 节点的 FISCO BCOS 区块链并运行。更多 build_chain.sh 的使用方法可参考其[使用文档](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/docs/tutorial/air/build_chain.html)：
 
     ```shell
     bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200 -w
@@ -186,7 +186,7 @@ ABI: C:/Users/liche/hello_world/target/hello_world.abi
 
 ### 配置和使用 console
 
-请参考[这里](https://fisco-bcos-documentation-3x.readthedocs.io/zh_CN/latest/docs/quick_start/air_installation.html#id7)安装依赖，下文是安装Java之后的console下载和配置步骤。
+请参考[这里](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/docs/quick_start/air_installation.html#id7)安装依赖，下文是安装Java之后的console下载和配置步骤。
 
 ```eval_rst
 .. code-block:: shell

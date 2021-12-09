@@ -149,7 +149,7 @@
 node ./cli.js exec initialize C:/Users/liche/voting/target/voting.wasm C:/Users/liche/voting/target/voting.abi
 ```
 
-由于部署过程中需要访问[CNS 服务](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/articles/3_features/35_contract/contract_name_service.html?highlight=%E5%90%88%E7%BA%A6%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1)，因此需要使用拥有 CNS 服务访问权限的账户执行部署过程。可以通过`--who`或`-w`选项指定执行`initialize`命令的账户名，若不提供则默认使用配置文件中`accounts`配置项下的首个账户。
+由于部署过程中需要访问[CNS 服务](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/docs/articles/3_features/35_contract/contract_name_service.html?highlight=%E5%90%88%E7%BA%A6%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1)，因此需要使用拥有 CNS 服务访问权限的账户执行部署过程。可以通过`--who`或`-w`选项指定执行`initialize`命令的账户名，若不提供则默认使用配置文件中`accounts`配置项下的首个账户。
 
 随后，可以通过`sign`命令签署合同，`sign`命令的使用方式如下所示：
 
@@ -171,7 +171,7 @@ Options:
 
 签署时，需要提供合同模板的名称及合同的数据内容，同样也可以通过`--who`或`-w`选项指定执行`sign`命令的账户名，若不提供则默认使用配置文件中`accounts`配置项下的首个账户。其中，合同内容需要以空格分割的形式，逐项提供合同模板中各个成员的值。例如，以签署一份`voters`成员为空数组的 Decision 合同为例：
 
-```
+```node
 node ./cli.js exec sign Decision 0x144d5ca47de35194b019b6f11a56028b964585c9 '{\"proposer\":\"0x144d5ca47de35194b019b6f11a56028b96458\",\"content\":\"Playing\"}' [] true
 ```
 
